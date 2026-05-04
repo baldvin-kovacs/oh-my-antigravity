@@ -2,6 +2,19 @@
 
 All notable changes to oh-my-gemini-cli are documented here.
 
+## v0.8.5 - Goal Mode Autonomous Delivery (2026-05-04)
+
+### Added
+
+- Added `/omg:goal` as a Ralph/Codex-style goal-driven autonomous delivery command.
+- Goal mode treats routine non-destructive work as approved, then runs the staged OmG delivery path through plan, PRD, taskboard, execution, verification, and fix loops.
+- Added explicit runtime-boundary guidance so blocked Gemini CLI approvals, sandbox limits, trusted-folder restrictions, shell/network policy, destructive actions, credential-sensitive actions, and production-impacting actions stop as blockers instead of being bypassed.
+
+### Changed
+
+- Bumped package and extension metadata to `v0.8.5`.
+- Updated README, Korean README, landing page, and history for the new goal command and autonomy limits.
+
 ## v0.8.4 - Remove Usage Monitor Hook (2026-04-28)
 
 ### Removed
@@ -50,6 +63,7 @@ All notable changes to oh-my-gemini-cli are documented here.
 
 | Version | Date | Theme | Outcome |
 | --- | --- | --- | --- |
+| `v0.8.5` | 2026-05-04 | Goal mode autonomous delivery | Added `/omg:goal` for routine-approved plan/PRD/taskboard/exec/verify/fix loops while keeping Gemini CLI runtime approval, sandbox, and policy limits explicit |
 | `v0.8.4` | 2026-04-28 | Remove usage monitor hook | Removed the quota-watch AfterAgent hook and script so OmG no longer prints `usage=unavailable`; usage/quota visibility now relies on Gemini CLI native `/model` or `/stats model` |
 | `v0.8.3` | 2026-04-27 | Gemini CLI late-April compatibility sync | Aligned OmG guidance with Gemini CLI v0.38-v0.40 preview changes around Plan Mode confirmation, unified subagent invocation, memory inbox/skill patching, hook plan env, and MCP auth config boundaries |
 | `v0.8.2` | 2026-04-22 | Quiet model routing defaults | Replaced the visible BeforeModel model banner with silent request routing so repeated model-routing lines no longer appear while lane-specific model selection remains active |

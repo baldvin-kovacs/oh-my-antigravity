@@ -54,15 +54,21 @@ Run a smoke test:
 /omg:status
 ```
 
+Run a goal-style autonomous delivery loop:
+
+```text
+/omg:goal "Implement the requested change, update tests, and verify acceptance criteria"
+```
+
 Note: extension install/update commands run in terminal mode (`gemini extensions ...`), not in interactive slash-command mode.
 
-## What's New in v0.8.4
+## What's New in v0.8.5
 
-- Removed the `omg-quota-watch-after-agent` usage monitor from default `AfterAgent` hook registration.
-- Deleted `hooks/scripts/after-agent-usage.js` so OmG no longer prints noisy `usage=unavailable` lines.
-- Kept the silent `BeforeModel` model router and the `omg-learn-signal-after-agent` safety filter.
-- Updated hook controls and docs to rely on Gemini CLI native `/model` or `/stats model` for authoritative usage/quota visibility.
-- Bumped extension/package version to `0.8.4` and refreshed README, Korean README, landing docs, and history.
+- Added `/omg:goal` for Ralph/Codex-style goal-driven autonomous delivery.
+- `/omg:goal` treats routine non-destructive work as approved, then runs `team-plan -> team-prd -> taskboard -> team-exec -> team-verify -> team-fix`.
+- Goal mode repeats `exec -> verify -> fix` until acceptance passes, tracked tasks are verified, a blocker appears, or max cycles are reached.
+- Documented the runtime boundary: OmG can orchestrate autonomy, but it does not bypass Gemini CLI approval, sandbox, trusted-folder, shell, network, or policy controls.
+- Bumped extension/package version to `0.8.5` and refreshed README, Korean README, landing docs, and history.
 
 ## Extension Boundary and Upgrade Safety
 
@@ -407,6 +413,7 @@ export OMG_DISABLED_HOOKS=learn
 | `/omg:mode` | Inspect or switch operating profile (`balanced/speed/deep/autopilot/ralph/ultrawork`) | At session start or posture change |
 | `/omg:model` | Inspect or switch model-selection strategy (`balanced/auto/custom`) | When setting one default model policy (for example Gemini Auto across all tasks) |
 | `/omg:approval` | Inspect or switch approval posture (`suggest/auto/full-auto`) | Before autonomous delivery loops or policy changes |
+| `/omg:goal` | Run a goal-driven autonomous delivery loop with routine work pre-approved and runtime-boundary blockers explicit | When you want `/goal`-style hands-off delivery until verified, blocked, or max cycles |
 | `/omg:autopilot` | Run iterative autonomous cycles with checkpoints | Complex autonomous delivery |
 | `/omg:ralph` | Enforce strict quality-gated orchestration | Release-critical tasks |
 | `/omg:ultrawork` | Throughput mode for batched independent tasks | Large backlogs |

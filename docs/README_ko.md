@@ -55,15 +55,21 @@ gemini extensions list
 /omg:status
 ```
 
+Goal-style autonomous delivery loop:
+
+```text
+/omg:goal "Implement the requested change, update tests, and verify acceptance criteria"
+```
+
 참고: 설치/업데이트 명령은 대화형 슬래시 명령 모드가 아니라 터미널 모드(`gemini extensions ...`)에서 실행합니다.
 
-## What's New in v0.8.4
+## What's New in v0.8.5
 
-- Removed `omg-quota-watch-after-agent` from the default `AfterAgent` hook registration.
-- Deleted `hooks/scripts/after-agent-usage.js` so OmG no longer prints low-signal `usage=unavailable` lines.
-- Kept the quiet `BeforeModel` model router and the `omg-learn-signal-after-agent` safety filter.
-- Usage and quota visibility now relies on Gemini CLI native `/model` or `/stats model` output.
-- Bumped package and extension metadata to `0.8.4` and refreshed README, Korean README, landing page, and history.
+- Added `/omg:goal` for Ralph/Codex-style goal-driven autonomous delivery.
+- `/omg:goal` treats routine non-destructive work as approved, then runs `team-plan -> team-prd -> taskboard -> team-exec -> team-verify -> team-fix`.
+- Goal mode repeats `exec -> verify -> fix` until acceptance passes, tracked tasks are verified, a blocker appears, or max cycles are reached.
+- Documented the runtime boundary: OmG can orchestrate autonomy, but it does not bypass Gemini CLI approval, sandbox, trusted-folder, shell, network, or policy controls.
+- Bumped package and extension metadata to `0.8.5` and refreshed README, Korean README, landing page, and history.
 
 ## 공유 워크플로우 상태
 
@@ -365,6 +371,7 @@ export OMG_DISABLED_HOOKS=learn
 | `/omg:mode` | 운영 프로파일 조회/전환 (`balanced/speed/deep/autopilot/ralph/ultrawork`) | 세션 시작 또는 운영 방식 전환 시 |
 | `/omg:model` | 기본 모델 선택 전략 조회/전환 (`balanced/auto/custom`) | 모든 작업에 Gemini Auto 같은 단일 기본 정책을 적용하고 싶을 때 |
 | `/omg:approval` | 승인 포스처 조회/전환 (`suggest/auto/full-auto`) | 자율 실행 루프 시작 전 또는 승인 정책 변경 시 |
+| `/omg:goal` | Ralph/Codex `/goal` 스타일의 목표 기반 자율 delivery loop 실행. routine non-destructive work는 승인된 것으로 간주하고 runtime-boundary blocker는 명시적으로 보고 | 검증 완료, blocker, 또는 max cycles까지 hands-off delivery가 필요할 때 |
 | `/omg:autopilot` | 체크포인트 기반 반복 자동 사이클 실행 | 자율 실행이 필요한 복잡 작업 |
 | `/omg:ralph` | 엄격한 품질 게이트 오케스트레이션 강제 | 릴리스 크리티컬 작업 |
 | `/omg:ultrawork` | 독립 작업 배치 처리 중심 고처리량 모드 | 대규모 백로그 |

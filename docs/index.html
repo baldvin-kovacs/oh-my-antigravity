@@ -483,7 +483,7 @@
   <header>
     <div class="wrap">
       <div class="hero-top">
-        <span class="badge">Latest Update v0.8.4</span>
+        <span class="badge">Latest Update v0.8.5</span>
         <div class="top-actions">
           <a class="btn btn-link btn-github" href="https://github.com/Joonghyun-Lee-Frieren/oh-my-gemini-cli" target="_blank" rel="noreferrer noopener">
             <svg class="btn-icon" viewBox="0 0 16 16" aria-hidden="true">
@@ -531,7 +531,7 @@
       <div class="stats">
         <div class="stat"><div class="n">13</div><div class="l">Sub-agents</div></div>
         <div class="stat"><div class="n">8</div><div class="l">Retained skills</div></div>
-        <div class="stat"><div class="n">42</div><div class="l">Namespaced commands</div></div>
+        <div class="stat"><div class="n">43</div><div class="l">Namespaced commands</div></div>
         <div class="stat"><div class="n">5</div><div class="l">Context layers</div></div>
       </div>
     </div>
@@ -539,8 +539,8 @@
 
   <section>
     <div class="wrap">
-      <h2>Latest Update (Usage Monitor Hook Removed)</h2>
-      <p class="sub">OmG v0.8.4 removes the quota-watch AfterAgent hook so sessions no longer print noisy <code>usage=unavailable</code> lines. Use Gemini CLI native <code>/model</code> or <code>/stats model</code> for usage and quota visibility.</p>
+      <h2>Latest Update (Goal Mode)</h2>
+      <p class="sub">OmG v0.8.5 adds <code>/omg:goal</code>, a Ralph/Codex-style autonomous delivery command that runs plan, PRD, taskboard, execution, verification, and fix loops until acceptance passes, a blocker appears, or max cycles are reached.</p>
       <table>
         <thead>
           <tr>
@@ -550,24 +550,24 @@
         </thead>
         <tbody>
           <tr>
-            <td>Removed hook</td>
-            <td><code>omg-quota-watch-after-agent</code> is no longer registered in <code>hooks/hooks.json</code>.</td>
+            <td>New command</td>
+            <td><code>/omg:goal</code> provides a goal-driven autonomous loop for routine non-destructive delivery work.</td>
           </tr>
           <tr>
-            <td>Removed script</td>
-            <td><code>hooks/scripts/after-agent-usage.js</code> was deleted to avoid stale usage monitor behavior.</td>
+            <td>Pipeline</td>
+            <td>Goal mode runs <code>team-plan -&gt; team-prd -&gt; taskboard -&gt; team-exec -&gt; team-verify -&gt; team-fix</code>.</td>
           </tr>
           <tr>
-            <td>Retained hooks</td>
-            <td>The quiet <code>BeforeModel</code> model router and <code>omg-learn-signal-after-agent</code> remain active.</td>
+            <td>Loop condition</td>
+            <td>It repeats <code>exec -&gt; verify -&gt; fix</code> until criteria pass, tracked tasks are verified, a blocker appears, or max cycles are reached.</td>
           </tr>
           <tr>
-            <td>Usage boundary</td>
-            <td>OmG no longer estimates or prints per-turn usage. Use native <code>/model</code> or <code>/stats model</code> for authoritative runtime status.</td>
+            <td>Approval posture</td>
+            <td>Routine non-destructive work is treated as approved, while destructive, credential-sensitive, production-impacting, and permission-denied actions stop as blockers.</td>
           </tr>
           <tr>
-            <td>Legacy state</td>
-            <td>Existing <code>.omg/state/quota-watch.json</code> files can be ignored; new releases no longer update them.</td>
+            <td>Runtime boundary</td>
+            <td>OmG orchestrates autonomy but does not bypass Gemini CLI approval, sandbox, trusted-folder, shell, network, or policy controls.</td>
           </tr>
           <tr>
             <td>Docs refresh</td>
@@ -575,7 +575,7 @@
           </tr>
           <tr>
             <td>Release metadata</td>
-            <td>Package and extension metadata were bumped to <code>v0.8.4</code>.</td>
+            <td>Package and extension metadata were bumped to <code>v0.8.5</code>.</td>
           </tr>
         </tbody>
       </table>
@@ -919,6 +919,7 @@ usage/quota: run Gemini CLI native /model or /stats model</pre>
           <tr><td>Command</td><td><code>/omg:loop</code></td><td>Continue exec/verify/fix cycles until done or blocked</td></tr>
           <tr><td>Command</td><td><code>/omg:model</code></td><td>Switch model-selection strategy (<code>balanced</code>/<code>auto</code>/<code>custom</code>)</td></tr>
           <tr><td>Command</td><td><code>/omg:approval</code></td><td>Switch approval posture (<code>suggest</code>/<code>auto</code>/<code>full-auto</code>)</td></tr>
+          <tr><td>Command</td><td><code>/omg:goal</code></td><td>Run a goal-driven autonomous delivery loop until verified, blocked, or max cycles are reached</td></tr>
           <tr><td>Command</td><td><code>/omg:team</code></td><td>Run full multi-agent lifecycle with optional assembled roster, deterministic queueing, and fallback rerouting</td></tr>
           <tr><td>Command</td><td><code>/omg:cancel</code></td><td>Harness-style safe cancel alias with resume handoff</td></tr>
           <tr><td>Command</td><td><code>/omg:optimize</code></td><td>Tune prompt/context quality and cost profile</td></tr>
@@ -1220,7 +1221,7 @@ usage/quota: run Gemini CLI native /model or /stats model</pre>
         <a href="./guide/agent-team-assembly.md">Team Assembly Guide</a>
         <a href="./guide/hook-engineering.md">Hook Engineering Guide</a>
       </div>
-      <div>Built for official Gemini CLI Extensions workflow. Usage monitor hook removed in v0.8.4.</div>
+      <div>Built for official Gemini CLI Extensions workflow. Goal mode added in v0.8.5.</div>
     </div>
   </footer>
 
