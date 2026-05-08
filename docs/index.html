@@ -296,17 +296,6 @@
       gap: 14px;
     }
 
-    .diagram {
-      margin: 0;
-      overflow-x: auto;
-      background: #f6fffd;
-      border: 1px solid #cdebe7;
-      border-radius: 10px;
-      padding: 12px;
-      color: #0e4b60;
-      font-size: 12px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -516,9 +505,6 @@
               <span class="btn-label">Copy</span>
             </button>
           </div>
-          <pre class="diagram" style="margin-top:10px;">Verify:
-  gemini extensions list
-  /extensions list</pre>
         </div>
 
         <div class="panel interview-spotlight">
@@ -571,7 +557,7 @@
           </tr>
           <tr>
             <td>Docs refresh</td>
-            <td>README, Korean README, landing page, hook guide, changelog, package metadata, and extension metadata were updated.</td>
+            <td>README, Korean README, landing page, hook guide, changelog, package metadata, and extension metadata were updated. Gemini CLI compatibility guidance was refreshed on 2026-05-08.</td>
           </tr>
           <tr>
             <td>Release metadata</td>
@@ -583,24 +569,52 @@
   </section>
 
   <section>
-    <div class="wrap two-col">
-      <div>
-        <h2>System Diagram</h2>
-        <p class="sub">How user intent becomes a validated output</p>
-        <pre class="diagram">User Request
-    |
-Gemini CLI
-    |
-OmG Extension (gemini-extension.json)
-    |--- commands/omg/*.toml  -> command-driven orchestration
-    |--- skills/*/SKILL.md    -> retained deep-work skills only
-    |--- agents/*.md          -> role prompts and behavior contracts
-    |--- GEMINI.md -> context/omg-core.md
-    |
-Structured Result
-(plan / implementation / review / next actions)</pre>
-      </div>
+    <div class="wrap">
+      <h2>Gemini CLI Compatibility</h2>
+      <p class="sub">Reviewed against official Gemini CLI documentation and releases on 2026-05-08.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Current Guidance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Stable baseline</td>
+            <td>Use Gemini CLI <code>v0.41.2+</code>. Latest stable observed: <code>v0.41.2</code> (2026-05-06).</td>
+          </tr>
+          <tr>
+            <td>Preview/nightly</td>
+            <td>Latest preview observed: <code>v0.42.0-preview.2</code>. Latest nightly observed: <code>v0.42.0-nightly.20260507.ga809bc7c5</code>. OmG does not require preview/nightly-only behavior.</td>
+          </tr>
+          <tr>
+            <td>Extensions</td>
+            <td>Install, update, list, reload, and validate through official <code>gemini extensions ...</code> and <code>/extensions</code> flows.</td>
+          </tr>
+          <tr>
+            <td>Registries</td>
+            <td>Use <code>/skills reload</code>, <code>/agents reload</code>, <code>/commands reload</code>, and <code>/extensions reload</code> after local changes or updates.</td>
+          </tr>
+          <tr>
+            <td>Subagents</td>
+            <td>Gemini CLI subagents are first-class and can be invoked automatically or with <code>@agent_name</code>; OmG keeps shared workflow state single-writer.</td>
+          </tr>
+          <tr>
+            <td>Policy</td>
+            <td><code>--allowed-tools</code> and <code>--yolo</code> are deprecated; use the Policy Engine and <code>--approval-mode=yolo</code> where appropriate.</td>
+          </tr>
+          <tr>
+            <td>Hooks</td>
+            <td>Hook diagnostics should go to <code>stderr</code> and final JSON to <code>stdout</code>. OmG retains quiet model routing and learn-signal filtering only.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
+  <section>
+    <div class="wrap">
       <div>
         <h2>Model Allocation</h2>
         <p class="sub">Default balanced split uses explicit preview model IDs: <code>gemini-3.1-pro-preview</code>, <code>gemini-3-flash-preview</code>, and <code>gemini-3.1-flash-lite-preview</code>, so OmG does not depend on Gemini CLI alias target drift.</p>
@@ -757,7 +771,7 @@ Structured Result
   </section>
 
   <section>
-    <div class="wrap two-col">
+    <div class="wrap">
       <div>
         <h2>Dynamic Team Assembly</h2>
         <p class="sub">Assemble first, execute after approval.</p>
@@ -821,18 +835,6 @@ Structured Result
           </tbody>
         </table>
       </div>
-      <div>
-        <h2>Example Flow</h2>
-        <p class="sub">Lightweight control without adding a runtime daemon.</p>
-        <pre class="diagram">/omg:workspace set .
-/omg:workspace audit
-/omg:workspace add ../feature-auth omg-executor
-/omg:taskboard sync
-/omg:team Implement auth flow with tests
-/omg:taskboard next
-/omg:recall "why was auth lane blocked" scope=state
-/omg:checkpoint</pre>
-      </div>
     </div>
   </section>
 
@@ -861,10 +863,6 @@ Structured Result
       <div>
         <h2>Retained Hook Output</h2>
         <p class="sub">Only actionable learn-signal nudges are emitted after agent turns.</p>
-        <pre class="diagram">(actionable session only) [OMG][Learn] Actionable session signals detected (4/11). Run '/omg:learn'
-(deep-interview lock active) learn nudge suppressed
-(duplicate retries against the same transcript snapshot are suppressed)
-usage/quota: run Gemini CLI native /model or /stats model</pre>
         <p class="sub" style="margin-top:10px;">Disable the retained learn hook with <code>hooksConfig.disabled = ["omg-learn-signal-after-agent"]</code>.</p>
       </div>
     </div>
@@ -1113,7 +1111,7 @@ usage/quota: run Gemini CLI native /model or /stats model</pre>
           <tr>
             <td>Workspace/sandbox behavior differs from docs</td>
             <td>Gemini CLI runtime is older than the current OmG compatibility baseline</td>
-            <td>Upgrade Gemini CLI to stable <code>v0.38.0+</code>, then rerun <code>/omg:doctor</code> and <code>/omg:workspace audit</code></td>
+            <td>Upgrade Gemini CLI to stable <code>v0.41.2+</code>, then rerun <code>/omg:doctor</code> and <code>/omg:workspace audit</code></td>
           </tr>
           <tr>
             <td>Slash command list looks stale after an update</td>
@@ -1205,7 +1203,7 @@ usage/quota: run Gemini CLI native /model or /stats model</pre>
           <tr>
             <td>Windows skill linking differs across machines</td>
             <td>Gemini CLI builds in the last two weeks changed how Windows skill links are handled</td>
-            <td>Prefer stable <code>v0.38.0+</code>; if you track preview/nightly, note that newer builds moved toward directory-junction based skill linking</td>
+            <td>Prefer stable <code>v0.41.2+</code>; if you track preview/nightly, verify skill-link behavior separately before publishing docs or support guidance</td>
           </tr>
         </tbody>
       </table>

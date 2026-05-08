@@ -112,80 +112,6 @@ Note: extension install/update commands run in terminal mode (`gemini extensions
 | Repetitive prompt engineering for common jobs | Slash commands for operational control plus retained deep-work skills (`$plan`, `$omg-plan`, `$execute`, `$research`) |
 | Drift between "what was decided" and "what was changed" | Review and debugging roles inside the same orchestration loop |
 
-## Architecture
-
-```mermaid
-flowchart TD
-    U["User Task"] --> CLI["Gemini CLI Session"]
-    CLI --> ORCH["OmG Extension Orchestration"]
-
-    CORE["GEMINI.md -> context/omg-core.md"] --> ORCH
-    CMDS["commands/omg/*.toml"] --> ORCH
-    AGENTS["agents/*.md (role prompts)"] --> ORCH
-    SKILLS["skills/*/SKILL.md (retained deep-work skills)"] --> ORCH
-
-    ORCH --> I["/omg:intent"]
-    I --> W["/omg:workspace (+ audit when needed)"]
-    W --> A["/omg:team-assemble (optional approval gate)"]
-    A --> P["team-plan -> team-prd -> taskboard sync"]
-    P --> E["team-exec"]
-    E --> V["team-verify"]
-    V --> D{"Done criteria met?"}
-    D -- "No" --> F["team-fix"]
-    F --> E
-    D -- "Yes" --> O["Validated output + next actions"]
-
-    W -. lane map .-> WS[".omg/state/workspace.json"]
-    P -. seed/sync .-> TB[".omg/state/taskboard.md"]
-    E -. slice updates .-> TB
-    V -. verifier evidence .-> TB
-    ORCH -. status/checkpoint/hooks/notify .-> ST[".omg/state/{workflow.md,hooks.json,notify.json,...}"]
-```
-
-## Team Workflow
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Director as omg-director
-    participant Workspace as workspace/taskboard state
-    participant Planner as omg-planner
-    participant Architect as omg-architect
-    participant Product as omg-product
-    participant Executor as omg-executor
-    participant Reviewer as omg-reviewer
-    participant Verifier as omg-verifier
-    participant Debugger as omg-debugger
-    participant Editor as omg-editor
-
-    User->>Director: Request team execution
-    Director->>Workspace: Check lane health + task readiness
-    Workspace-->>Director: workspace/taskboard summary
-    Director->>User: Propose dynamic team + approval gate
-    User->>Director: Approve roster
-    Director->>Planner: Run team-plan
-    Planner->>Architect: Validate technical direction (when needed)
-    Architect-->>Planner: Design feedback and risk flags
-    Planner-->>Director: Task graph + lane assumptions
-    Director->>Product: Run team-prd
-    Product-->>Director: Acceptance criteria + non-goals
-
-    loop team-exec -> team-verify -> team-fix until done/blocker
-        Director->>Executor: Assign smallest ready slice
-        Executor->>Workspace: Update taskboard with execution notes
-        Director->>Reviewer: Review implementation slice
-        Reviewer->>Verifier: Run acceptance + anti-slop gate
-        Verifier-->>Director: Pass/fail + verified task IDs
-        alt Verification fails
-            Director->>Debugger: Trigger root-cause analysis
-            Debugger-->>Executor: Patch plan and fix targets
-        end
-    end
-
-    Director->>Editor: Package validated output
-    Editor-->>User: Final validated deliverable
-```
-
 ## Dynamic Team Assembly
 
 Use `team-assemble` when a fixed engineering roster is not enough.
@@ -325,57 +251,48 @@ Example (disable the shipped AfterAgent learn hook by env):
 export OMG_DISABLED_HOOKS=learn
 ```
 
-## Gemini CLI Compatibility Notes (Reviewed: 2026-04-27)
+## Gemini CLI Compatibility Notes (Reviewed: 2026-05-08)
 
-- Recent upstream review window: Gemini CLI releases from 2026-04-14 through 2026-04-25.
-- Latest stable observed during review: `v0.39.1` (2026-04-24), with `v0.40.0-preview.4` (2026-04-25) available on the preview channel.
-- Direct OmG actions from this review:
-  - Plan Mode skill/subagent activation now requires explicit user confirmation before OmG proceeds.
-  - Subagent handoff wording now assumes Gemini CLI's unified invocation path instead of legacy wrapped subagent tools.
-  - Native `/memory inbox` and skill patching are treated as review queues; accepted patches still need OmG skill metadata validation.
-  - Hook and plan guidance now accounts for `GEMINI_PLANS_DIR` when Gemini CLI exposes it.
-  - Doctor diagnostics now check agent MCP configs that use `auth` blocks for clear credential boundaries.
-- Recent upstream changes with OmG impact:
-  - `v0.38.0` fixed slash command refresh after `/skills reload`, improved Plan Mode policy for web fetch, added background process monitoring, landed ContextCompressionService, and improved persistent policy approvals.
-  - `v0.39.0` added `/memory inbox`, skill patching, unified subagent invocation, stronger sandbox path handling, `GEMINI_PLANS_DIR` hook exposure, MCP auth blocks in agent configs, and silent Plan Mode model-routing fallback.
-  - `v0.40.0-preview.x` continued plan/session, memory, security, terminal notification, and extension bundling fixes; OmG tracks those as preview-channel compatibility notes rather than stable requirements.
-
-- Model routing policy updated on 2026-04-22:
-  - OmG balanced routing now sends explicit preview model IDs instead of relying on Gemini CLI aliases.
-  - planning/review routes use `gemini-3.1-pro-preview`, execution uses `gemini-3-flash-preview`, and quick edits use `gemini-3.1-flash-lite-preview`.
-  - `/omg:model auto` still defers to Gemini runtime auto-model policy when the operator explicitly selects it.
-- Preview features default for this workspace:
-  - this repository now ships `.gemini/settings.json` with `general.previewFeatures=true`
-  - explicit preview model IDs are used for balanced routing; keep the flag enabled for runtime features that still depend on Gemini CLI preview mode
-- Recommended minimum validated baseline: Gemini CLI `v0.38.0+`.
-  - `v0.38.0` is now the minimum stable runtime OmG recommends because it includes the `/skills reload` refresh fix and the stable baseline after the recent Plan Mode, sandbox, policy, subagent, and extension compatibility changes.
-- Official subagent status update:
-  - Google Developers Blog published `Subagents have arrived in Gemini CLI` on 2026-04-15.
-  - OmG now treats Gemini CLI subagents as a first-class supported capability rather than an experimental edge path.
-  - That review is directly reflected in OmG's current safety rules: delegated/worker/subagent turns are treated as read-mostly for shared workflow state, and shared project state now uses a single-writer session lock plus session-local draft fallback.
-- Recent stable updates with direct OmG impact:
-  - `v0.36.0` (2026-04-01): multi-registry subagent architecture, native macOS Seatbelt + Windows sandboxing, Git worktree support, and stronger subagent context/rejection handling.
-  - `v0.37.0` (2026-04-08): dynamic Linux sandbox expansion + worktree support, Windows sandbox dynamic expansion, plan-mode write-policy relaxations, skill-system instructions injected into subagent prompts, global env allowlist fixes, cross-platform terminal-bell notifications, and role-specific `/stats` metrics.
-- Current OmG review outcome for post-GA subagent use:
-  - cross-project hook state now avoids unsafe shared `process.cwd()` fallback
-  - delegated subagent hook turns are skipped by default unless explicitly allowed
-  - same-project shared workflow state now assumes one authoritative orchestration writer via `.omg/state/session-lock.json`
-  - non-owning parallel sessions should write drafts under `.omg/state/sessions/[session-slug]/` and hand them back for merge
-- Preview/nightly note:
-  - OmG does not require preview-only Gemini CLI features for subagent operation.
-  - If you track preview/nightly builds, continue to watch Windows skill-link behavior, slash-registry refresh behavior, and other UX-level changes separately from OmG's stable baseline.
-- UX compatibility retained from `v0.34.0-preview.0+`:
-  - direct skill invocation via `/skill-name`
-  - footer customization via `/footer` (backed by `ui.footer.items`, `ui.footer.showLabels`, `ui.footer.hideCWD`, `ui.footer.hideSandboxStatus`, `ui.footer.hideModelInfo`)
-- OmG compatibility for slash skill invocation:
-  - use `/omg-plan` (or `$omg-plan`) when you want the OmG planning skill without colliding with native `/plan`.
-- Slash registry refresh guidance:
-  - if OmG skills or slash aliases look stale right after a Gemini CLI/runtime update, run `/skills reload`; `v0.38.0+` includes the slash command refresh fix for that path.
-- Policy engine migration: if your wrapper scripts still pass `--allowed-tools`, migrate to `--policy` profiles (`--allowed-tools` was deprecated in Gemini CLI `v0.30.0`).
-- Native `/plan` mode and OmG planning commands can coexist:
-  - native: `/plan`
-  - OmG automated flow: `/omg:team-assemble` (or `/omg:team`)
-  - OmG manual staged flow: `/omg:team-plan`, `/omg:team-prd`, etc.
+- Official upstream baseline checked:
+  - latest stable release: Gemini CLI `v0.41.2` (2026-05-06)
+  - latest preview release: `v0.42.0-preview.2` (2026-05-06)
+  - latest nightly observed: `v0.42.0-nightly.20260507.ga809bc7c5` (2026-05-07)
+- Recommended OmG runtime baseline: Gemini CLI `v0.41.2+`.
+  - This keeps OmG on the current stable extension, subagent, policy, session, sandbox, and model-selection behavior.
+  - Preview/nightly builds remain optional; OmG does not require preview/nightly-only behavior for normal operation.
+- Official extension workflow remains the supported install/update path:
+  - install/update/manage from terminal mode with `gemini extensions ...`
+  - verify loaded extensions interactively with `/extensions list`
+  - refresh active extension metadata with `/extensions reload` after runtime or extension updates
+- Current reload guidance:
+  - use `/skills reload` for retained skill changes
+  - use `/agents reload` for subagent registry changes
+  - use `/commands reload` for custom slash-command changes
+  - restart the session if a registry still appears stale after reload
+- Subagent compatibility:
+  - Gemini CLI subagents are first-class and may be invoked automatically or with `@agent_name`
+  - OmG keeps delegated/worker/subagent turns read-mostly for shared workflow state
+  - shared OmG state still assumes one authoritative orchestration writer via `.omg/state/session-lock.json`
+  - non-owning parallel sessions should write drafts under `.omg/state/sessions/[session-slug]/`
+- Model routing compatibility:
+  - Gemini CLI `--model` defaults to `auto`; official aliases include `auto`, `pro`, `flash`, and `flash-lite`
+  - OmG `balanced` still writes explicit lane model IDs for deterministic routing
+  - `/omg:model auto` defers lane model selection to Gemini CLI runtime auto-model policy
+- Policy and approval compatibility:
+  - `--allowed-tools` remains deprecated; use the Gemini CLI Policy Engine instead
+  - `--yolo` is deprecated; use `--approval-mode=yolo` if that posture is required
+  - OmG goal/autopilot flows still stop at Gemini CLI approval, sandbox, trusted-folder, shell, network, and policy boundaries
+- Hook compatibility:
+  - hook scripts must write diagnostic logs to `stderr` and final JSON to `stdout`
+  - OmG keeps only the quiet `BeforeModel` router and the `AfterAgent` learn-signal safety filter
+  - usage/quota visibility remains delegated to Gemini CLI native `/model` or `/stats model`
+- Browser-agent note:
+  - Gemini CLI now documents `browser_agent` as experimental
+  - OmG does not enable or depend on `browser_agent` by default
+- Slash planning compatibility:
+  - native Gemini CLI planning remains `/plan`
+  - use `/omg-plan` or `$omg-plan` for the OmG planning skill
+  - use `/omg:team-plan`, `/omg:team-assemble`, or `/omg:team` for staged OmG workflows
 
 ## Interface Map
 
@@ -507,7 +424,7 @@ oh-my-gemini-cli/
 | `/plan` opens native plan mode when you wanted OmG planning skill | Name collision between built-in `/plan` and skill-slash invocation | Use `/omg-plan` (or `$omg-plan`) for the OmG planning skill, or use `/omg:team-assemble` or `/omg:team-plan` for staged workflow planning |
 | You want one global model or Gemini Auto but OmG still behaves like an older pinned model policy | Older installs or stale extension metadata may still carry older model guidance or cached command metadata | Update/reinstall OmG, then set `/omg:model balanced` for explicit preview routing or `/omg:model auto` for runtime auto selection |
 | Skill does not trigger | Only the retained deep-work skills are still shipped, or extension metadata is stale | Recheck the retained skill list in the README and reload the extension/session |
-| Windows skill linking or extension reload behaves differently across machines | Different Gemini CLI builds handle skill links differently | Prefer stable `v0.38.0+`; if you track nightly/preview, note that newer builds moved Windows skill linking toward directory junctions |
+| Windows skill linking or extension reload behaves differently across machines | Different Gemini CLI builds handle skill links differently | Prefer stable `v0.41.2+`; if you track preview/nightly, verify skill-link behavior separately before publishing docs or support guidance |
 | Team assembly keeps proposing but does not execute | Approval token missing in request | Reply with explicit approval (`yes`, `approve`, `go`, or `run`) |
 | Parallel execution keeps colliding or re-planning the same files | Workspace lanes are not explicit | Run `/omg:workspace status` or set lane/path ownership with `/omg:workspace` |
 | `taskboard next` keeps jumping between tasks unpredictably | Missing priority values or unstable queue ordering | Run `/omg:taskboard sync` (fills default `p2`), then `/omg:taskboard rebalance` |
