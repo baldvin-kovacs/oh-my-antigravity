@@ -251,15 +251,17 @@ Example (disable the shipped AfterAgent learn hook by env):
 export OMG_DISABLED_HOOKS=learn
 ```
 
-## Gemini CLI Compatibility Notes (Reviewed: 2026-05-08)
+## Gemini CLI Compatibility Notes (Reviewed: 2026-05-13)
 
 - Official upstream baseline checked:
-  - latest stable release: Gemini CLI `v0.41.2` (2026-05-06)
+  - latest stable release: Gemini CLI `v0.42.0` (2026-05-12)
   - latest preview release: `v0.42.0-preview.2` (2026-05-06)
   - latest nightly observed: `v0.42.0-nightly.20260507.ga809bc7c5` (2026-05-07)
-- Recommended OmG runtime baseline: Gemini CLI `v0.41.2+`.
+- Recent upstream changelog window reviewed: `v0.39.0` (2026-04-23) through `v0.42.0` (2026-05-12).
+- Recommended OmG runtime baseline: Gemini CLI `v0.42.0+`.
   - This keeps OmG on the current stable extension, subagent, policy, session, sandbox, and model-selection behavior.
   - Preview/nightly builds remain optional; OmG does not require preview/nightly-only behavior for normal operation.
+  - No OmG command, hook, agent, or manifest code change is required by the May 2026 upstream changelog set.
 - Official extension workflow remains the supported install/update path:
   - install/update/manage from terminal mode with `gemini extensions ...`
   - verify loaded extensions interactively with `/extensions list`
@@ -282,10 +284,16 @@ export OMG_DISABLED_HOOKS=learn
   - `--allowed-tools` remains deprecated; use the Gemini CLI Policy Engine instead
   - `--yolo` is deprecated; use `--approval-mode=yolo` if that posture is required
   - OmG goal/autopilot flows still stop at Gemini CLI approval, sandbox, trusted-folder, shell, network, and policy boundaries
+- Environment-loading compatibility:
+  - Gemini CLI `v0.41.0+` enforces workspace trust around `.env` loading in headless mode
+  - Gemini CLI `v0.42.0` adds `ignoreLocalEnv` and `--ignore-env`; prefer these runtime controls when a project-local `.env` should be ignored
 - Hook compatibility:
   - hook scripts must write diagnostic logs to `stderr` and final JSON to `stdout`
   - OmG keeps only the quiet `BeforeModel` router and the `AfterAgent` learn-signal safety filter
   - usage/quota visibility remains delegated to Gemini CLI native `/model` or `/stats model`
+- Memory compatibility:
+  - Gemini CLI `v0.39.0+` introduced native `/memory` inbox flows, and `v0.42.0` adds Auto Memory inbox behavior
+  - OmG `/omg:memory` remains a project workflow command for `MEMORY.md`, `.omg/memory/*`, and path-aware rule packs; do not treat it as a replacement for Gemini CLI native memory review
 - Browser-agent note:
   - Gemini CLI now documents `browser_agent` as experimental
   - OmG does not enable or depend on `browser_agent` by default
@@ -424,7 +432,7 @@ oh-my-gemini-cli/
 | `/plan` opens native plan mode when you wanted OmG planning skill | Name collision between built-in `/plan` and skill-slash invocation | Use `/omg-plan` (or `$omg-plan`) for the OmG planning skill, or use `/omg:team-assemble` or `/omg:team-plan` for staged workflow planning |
 | You want one global model or Gemini Auto but OmG still behaves like an older pinned model policy | Older installs or stale extension metadata may still carry older model guidance or cached command metadata | Update/reinstall OmG, then set `/omg:model balanced` for explicit preview routing or `/omg:model auto` for runtime auto selection |
 | Skill does not trigger | Only the retained deep-work skills are still shipped, or extension metadata is stale | Recheck the retained skill list in the README and reload the extension/session |
-| Windows skill linking or extension reload behaves differently across machines | Different Gemini CLI builds handle skill links differently | Prefer stable `v0.41.2+`; if you track preview/nightly, verify skill-link behavior separately before publishing docs or support guidance |
+| Windows skill linking or extension reload behaves differently across machines | Different Gemini CLI builds handle skill links differently | Prefer stable `v0.42.0+`; if you track preview/nightly, verify skill-link behavior separately before publishing docs or support guidance |
 | Team assembly keeps proposing but does not execute | Approval token missing in request | Reply with explicit approval (`yes`, `approve`, `go`, or `run`) |
 | Parallel execution keeps colliding or re-planning the same files | Workspace lanes are not explicit | Run `/omg:workspace status` or set lane/path ownership with `/omg:workspace` |
 | `taskboard next` keeps jumping between tasks unpredictably | Missing priority values or unstable queue ordering | Run `/omg:taskboard sync` (fills default `p2`), then `/omg:taskboard rebalance` |

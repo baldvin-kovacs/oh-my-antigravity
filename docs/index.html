@@ -557,7 +557,7 @@
           </tr>
           <tr>
             <td>Docs refresh</td>
-            <td>README, Korean README, landing page, hook guide, changelog, package metadata, and extension metadata were updated. Gemini CLI compatibility guidance was refreshed on 2026-05-08.</td>
+            <td>README, Korean README, landing page, hook guide, changelog, package metadata, and extension metadata were updated. Gemini CLI compatibility guidance was refreshed on 2026-05-13.</td>
           </tr>
           <tr>
             <td>Release metadata</td>
@@ -571,7 +571,7 @@
   <section>
     <div class="wrap">
       <h2>Gemini CLI Compatibility</h2>
-      <p class="sub">Reviewed against official Gemini CLI documentation and releases on 2026-05-08.</p>
+      <p class="sub">Reviewed against official Gemini CLI documentation and releases on 2026-05-13.</p>
       <table>
         <thead>
           <tr>
@@ -582,7 +582,7 @@
         <tbody>
           <tr>
             <td>Stable baseline</td>
-            <td>Use Gemini CLI <code>v0.41.2+</code>. Latest stable observed: <code>v0.41.2</code> (2026-05-06).</td>
+            <td>Use Gemini CLI <code>v0.42.0+</code>. Latest stable observed: <code>v0.42.0</code> (2026-05-12). Recent changelog window reviewed: <code>v0.39.0</code> through <code>v0.42.0</code>.</td>
           </tr>
           <tr>
             <td>Preview/nightly</td>
@@ -605,8 +605,16 @@
             <td><code>--allowed-tools</code> and <code>--yolo</code> are deprecated; use the Policy Engine and <code>--approval-mode=yolo</code> where appropriate.</td>
           </tr>
           <tr>
+            <td>Environment</td>
+            <td>Gemini CLI protects headless <code>.env</code> loading with workspace trust and now supports <code>ignoreLocalEnv</code>/<code>--ignore-env</code> when local environment files should be ignored.</td>
+          </tr>
+          <tr>
             <td>Hooks</td>
             <td>Hook diagnostics should go to <code>stderr</code> and final JSON to <code>stdout</code>. OmG retains quiet model routing and learn-signal filtering only.</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>Gemini CLI native <code>/memory</code> and Auto Memory inbox flows are separate from OmG <code>/omg:memory</code>, which remains scoped to project memory files and rule packs.</td>
           </tr>
         </tbody>
       </table>
@@ -1111,7 +1119,7 @@
           <tr>
             <td>Workspace/sandbox behavior differs from docs</td>
             <td>Gemini CLI runtime is older than the current OmG compatibility baseline</td>
-            <td>Upgrade Gemini CLI to stable <code>v0.41.2+</code>, then rerun <code>/omg:doctor</code> and <code>/omg:workspace audit</code></td>
+            <td>Upgrade Gemini CLI to stable <code>v0.42.0+</code>, then rerun <code>/omg:doctor</code> and <code>/omg:workspace audit</code></td>
           </tr>
           <tr>
             <td>Slash command list looks stale after an update</td>
@@ -1203,7 +1211,7 @@
           <tr>
             <td>Windows skill linking differs across machines</td>
             <td>Gemini CLI builds in the last two weeks changed how Windows skill links are handled</td>
-            <td>Prefer stable <code>v0.41.2+</code>; if you track preview/nightly, verify skill-link behavior separately before publishing docs or support guidance</td>
+            <td>Prefer stable <code>v0.42.0+</code>; if you track preview/nightly, verify skill-link behavior separately before publishing docs or support guidance</td>
           </tr>
         </tbody>
       </table>
