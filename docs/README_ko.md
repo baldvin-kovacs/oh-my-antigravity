@@ -63,13 +63,13 @@ Goal-style autonomous delivery loop:
 
 참고: 설치/업데이트 명령은 대화형 슬래시 명령 모드가 아니라 터미널 모드(`gemini extensions ...`)에서 실행합니다.
 
-## What's New in v0.8.5
+## What's New in v0.8.6
 
-- Added `/omg:goal` for Ralph/Codex-style goal-driven autonomous delivery.
-- `/omg:goal` treats routine non-destructive work as approved, then runs `team-plan -> team-prd -> taskboard -> team-exec -> team-verify -> team-fix`.
-- Goal mode repeats `exec -> verify -> fix` until acceptance passes, tracked tasks are verified, a blocker appears, or max cycles are reached.
-- Documented the runtime boundary: OmG can orchestrate autonomy, but it does not bypass Gemini CLI approval, sandbox, trusted-folder, shell, network, or policy controls.
-- Bumped package and extension metadata to `0.8.5` and refreshed README, Korean README, landing page, and history.
+- `/omg:blueprint`와 `$blueprint`를 추가해 구현 전에 제품/UI 워크플로 결정을 고정할 수 있습니다.
+- Blueprint는 대상 사용자, 핵심 흐름, 인터페이스 결정, 화면 상태, 콘텐츠 구조, 접근성, 반응형 제약, 미해결 질문, 검증 근거를 정리합니다.
+- 사용자가 지속 저장을 요청하면 `.omg/state/blueprint.md`에 보관하고, 아니면 바로 복사 가능한 설계 계약으로 출력합니다.
+- 제품 또는 인터페이스 비중이 큰 작업은 `intent -> blueprint -> team-plan/team-prd -> taskboard -> team-exec` 흐름으로 안내합니다.
+- package/extension metadata를 `0.8.6`으로 올리고 README, Korean README, landing page, history를 갱신했습니다.
 
 ## 공유 워크플로우 상태
 
@@ -287,6 +287,7 @@ export OMG_DISABLED_HOOKS=learn
 | `/omg:intent` | 요청 인텐트를 분류하고 적절한 스테이지/명령으로 라우팅 | 계획/구현 전, 요청 의도가 모호할 때 |
 | `/omg:rules` | 작업 조건에 맞는 가드레일 룰 팩 활성화 | 마이그레이션/보안/성능 민감 작업 시작 전 |
 | `/omg:deep-init` | 장기 세션을 위한 프로젝트 맵/검증 기준선 초기화 | 신규 코드베이스 온보딩 또는 대형 작업 킥오프 시 |
+| `/omg:blueprint` | 제품/UI 워크플로 결정, 인터페이스 상태, 콘텐츠 구조, 접근성, 검증 근거를 정의 | 사용자-facing 흐름을 계획하거나 구현하기 전 |
 | `/omg:workspace` | 기본 루트, worktree/path lane, 충돌 경계를 설정/조회하고 audit 수행 | 병렬 구현 또는 멀티 루트 작업 전 |
 | `/omg:taskboard` | 안정적인 task ID, `p0-p3` 우선순위, 결정적 `next`, baseline anchor, verifier 기반 완료 상태를 유지하는 컴팩트 작업 보드 | 계획 후 및 장기 exec/verify 루프 전반 |
 | `/omg:recall` | 상태 파일 우선 + 제한적 이력 확장 검색으로 과거 결정/근거 복원 | 긴 세션에서 과거 맥락을 전체 transcript 재생 없이 빠르게 찾을 때 |
@@ -325,7 +326,9 @@ export OMG_DISABLED_HOOKS=learn
 | `$prd` | 요청을 측정 가능한 수용 기준으로 변환 | PRD 스타일 범위 계약 |
 | `$research` | 옵션/트레이드오프 탐색 | 의사결정 중심 비교 |
 | `$deep-dive` | 실행 전 trace-to-interview 기반 요구사항 정제 | 명확도 점수 + 가정 원장 + launch brief |
+| `$blueprint` | 제품/UI 워크플로 결정을 구현 전에 고정 | workflow map, interface decisions, state coverage, verification hooks |
 | `$context-optimize` | 컨텍스트 구조 개선 | 압축 + 신호 대 잡음 최적화 |
+| `$learn` | 세션에서 재사용 가능한 패턴 추출 | learned rule 후보와 저장 권장안 |
 
 ### Sub-agents
 

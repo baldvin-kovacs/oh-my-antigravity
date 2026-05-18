@@ -14,6 +14,20 @@ All notable changes to oh-my-gemini-cli are documented here.
 - Removed README and landing-page visual flow blocks so the public docs stay text/table driven.
 - Updated README, Korean README, landing page, and history for the latest compatibility posture only.
 
+## v0.8.6 - Blueprint Workflow (2026-05-18)
+
+### Added
+
+- Added `/omg:blueprint` as an extension-native product/UI workflow decision command.
+- Added `$blueprint` as a retained deep-work skill for target users, workflow maps, interface decisions, state coverage, content hierarchy, accessibility, responsive constraints, open questions, and verification hooks.
+- Added `.omg/state/blueprint.md` as the recommended durable artifact when users request persistence.
+
+### Changed
+
+- Updated OmG core routing so product or interface-heavy work can pass through `intent -> blueprint -> team-plan/team-prd -> taskboard -> team-exec`.
+- Bumped package and extension metadata to `v0.8.6`.
+- Updated README, Korean README, landing page, and history for the blueprint workflow.
+
 ## v0.8.5 - Goal Mode Autonomous Delivery (2026-05-04)
 
 ### Added
@@ -70,6 +84,7 @@ All notable changes to oh-my-gemini-cli are documented here.
 
 | Version | Date | Theme | Outcome |
 | --- | --- | --- | --- |
+| `v0.8.6` | 2026-05-18 | Blueprint workflow | Added `/omg:blueprint` and `$blueprint` for product/UI workflow decisions, interface states, content hierarchy, accessibility, responsive constraints, and verification hooks before implementation |
 | `v0.8.5` | 2026-05-04 | Goal mode autonomous delivery | Added `/omg:goal` for routine-approved plan/PRD/taskboard/exec/verify/fix loops while keeping Gemini CLI runtime approval, sandbox, and policy limits explicit |
 | `v0.8.4` | 2026-04-28 | Remove usage monitor hook | Removed the quota-watch AfterAgent hook and script so OmG no longer prints `usage=unavailable`; usage/quota visibility now relies on Gemini CLI native `/model` or `/stats model` |
 | `v0.8.3` | 2026-04-27 | Gemini CLI late-April compatibility sync | Superseded by the 2026-05-13 compatibility guidance above |

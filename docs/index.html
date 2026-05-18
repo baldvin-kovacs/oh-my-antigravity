@@ -472,7 +472,7 @@
   <header>
     <div class="wrap">
       <div class="hero-top">
-        <span class="badge">Latest Update v0.8.5</span>
+        <span class="badge">Latest Update v0.8.6</span>
         <div class="top-actions">
           <a class="btn btn-link btn-github" href="https://github.com/Joonghyun-Lee-Frieren/oh-my-gemini-cli" target="_blank" rel="noreferrer noopener">
             <svg class="btn-icon" viewBox="0 0 16 16" aria-hidden="true">
@@ -516,8 +516,8 @@
 
       <div class="stats">
         <div class="stat"><div class="n">13</div><div class="l">Sub-agents</div></div>
-        <div class="stat"><div class="n">8</div><div class="l">Retained skills</div></div>
-        <div class="stat"><div class="n">43</div><div class="l">Namespaced commands</div></div>
+        <div class="stat"><div class="n">10</div><div class="l">Retained skills</div></div>
+        <div class="stat"><div class="n">44</div><div class="l">Namespaced commands</div></div>
         <div class="stat"><div class="n">5</div><div class="l">Context layers</div></div>
       </div>
     </div>
@@ -525,8 +525,8 @@
 
   <section>
     <div class="wrap">
-      <h2>Latest Update (Goal Mode)</h2>
-      <p class="sub">OmG v0.8.5 adds <code>/omg:goal</code>, a Ralph/Codex-style autonomous delivery command that runs plan, PRD, taskboard, execution, verification, and fix loops until acceptance passes, a blocker appears, or max cycles are reached.</p>
+      <h2>Latest Update (Blueprint Workflow)</h2>
+      <p class="sub">OmG v0.8.6 adds <code>/omg:blueprint</code> and <code>$blueprint</code> for product/UI workflow decisions before implementation, with durable handoff coverage for interface states, content hierarchy, accessibility, responsive behavior, and verification hooks.</p>
       <table>
         <thead>
           <tr>
@@ -537,31 +537,31 @@
         <tbody>
           <tr>
             <td>New command</td>
-            <td><code>/omg:goal</code> provides a goal-driven autonomous loop for routine non-destructive delivery work.</td>
+            <td><code>/omg:blueprint</code> defines product and interface decisions before planning or coding user-facing flows.</td>
           </tr>
           <tr>
-            <td>Pipeline</td>
-            <td>Goal mode runs <code>team-plan -&gt; team-prd -&gt; taskboard -&gt; team-exec -&gt; team-verify -&gt; team-fix</code>.</td>
+            <td>New skill</td>
+            <td><code>$blueprint</code> creates a workflow map, interface decision table, state coverage, open questions, and handoff notes.</td>
           </tr>
           <tr>
-            <td>Loop condition</td>
-            <td>It repeats <code>exec -&gt; verify -&gt; fix</code> until criteria pass, tracked tasks are verified, a blocker appears, or max cycles are reached.</td>
+            <td>Artifact</td>
+            <td>When persistence is requested, the accepted blueprint can be stored in <code>.omg/state/blueprint.md</code>.</td>
           </tr>
           <tr>
-            <td>Approval posture</td>
-            <td>Routine non-destructive work is treated as approved, while destructive, credential-sensitive, production-impacting, and permission-denied actions stop as blockers.</td>
+            <td>Routing</td>
+            <td>Product-heavy work can flow through <code>intent -&gt; blueprint -&gt; team-plan/team-prd -&gt; taskboard -&gt; team-exec</code>.</td>
           </tr>
           <tr>
-            <td>Runtime boundary</td>
-            <td>OmG orchestrates autonomy but does not bypass Gemini CLI approval, sandbox, trusted-folder, shell, network, or policy controls.</td>
+            <td>Coverage</td>
+            <td>Blueprints capture users, workflows, interface decisions, empty/loading/error/success states, content structure, accessibility, responsiveness, and evidence.</td>
           </tr>
           <tr>
             <td>Docs refresh</td>
-            <td>README, Korean README, landing page, hook guide, changelog, package metadata, and extension metadata were updated. Gemini CLI compatibility guidance was refreshed on 2026-05-13.</td>
+            <td>README, Korean README, landing page, changelog, package metadata, and extension metadata were updated.</td>
           </tr>
           <tr>
             <td>Release metadata</td>
-            <td>Package and extension metadata were bumped to <code>v0.8.5</code>.</td>
+            <td>Package and extension metadata were bumped to <code>v0.8.6</code>.</td>
           </tr>
         </tbody>
       </table>
@@ -919,6 +919,7 @@
           <tr><td>Command</td><td><code>/omg:recall</code></td><td>Recover prior decisions/evidence with state-first search and bounded history fallback</td></tr>
           <tr><td>Command</td><td><code>/omg:team-assemble</code></td><td>Build a task-fit team roster, fallback map, and request execution approval</td></tr>
           <tr><td>Command</td><td><code>/omg:deep-init</code></td><td>Build project map and validation baseline before long sessions</td></tr>
+          <tr><td>Command</td><td><code>/omg:blueprint</code></td><td>Define product/UI workflow decisions, interface states, content hierarchy, accessibility, and verification hooks</td></tr>
           <tr><td>Command</td><td><code>/omg:rules</code></td><td>Activate task-conditional guardrail rule packs</td></tr>
           <tr><td>Command</td><td><code>/omg:memory</code></td><td>Manage <code>MEMORY.md</code> index, topic notes, and rule packs</td></tr>
           <tr><td>Command</td><td><code>/omg:reasoning</code></td><td>Set global/teammate reasoning effort profile for depth and cost control</td></tr>
@@ -937,7 +938,9 @@
           <tr><td>Skill</td><td><code>$ralplan</code></td><td>Strict staged planning with rollback points</td></tr>
           <tr><td>Skill</td><td><code>$research</code></td><td>Option comparison and tradeoff synthesis</td></tr>
           <tr><td>Skill</td><td><code>$deep-dive</code></td><td>Trace-to-interview discovery with clarity score and launch brief</td></tr>
+          <tr><td>Skill</td><td><code>$blueprint</code></td><td>Product/UI workflow map, interface decisions, state coverage, and verification hooks</td></tr>
           <tr><td>Skill</td><td><code>$context-optimize</code></td><td>Signal-to-noise optimization in context</td></tr>
+          <tr><td>Skill</td><td><code>$learn</code></td><td>Reusable pattern extraction and learned-rule curation</td></tr>
         </tbody>
       </table>
       <table>
@@ -1028,6 +1031,11 @@
             <td>Start workflow</td>
             <td><code>/omg:deep-init &lt;task&gt;</code> then <code>/omg:intent &lt;task&gt;</code></td>
             <td>Project map + stage-routed handoff before coding</td>
+          </tr>
+          <tr>
+            <td>Lock product/UI decisions</td>
+            <td><code>/omg:blueprint &lt;task&gt;</code> or <code>$blueprint</code></td>
+            <td>Workflow map, interface decisions, state coverage, accessibility constraints, and verification hooks before implementation</td>
           </tr>
           <tr>
             <td>Set workspace lanes</td>
@@ -1227,7 +1235,7 @@
         <a href="./guide/agent-team-assembly.md">Team Assembly Guide</a>
         <a href="./guide/hook-engineering.md">Hook Engineering Guide</a>
       </div>
-      <div>Built for official Gemini CLI Extensions workflow. Goal mode added in v0.8.5.</div>
+      <div>Built for official Gemini CLI Extensions workflow. Blueprint workflow added in v0.8.6.</div>
     </div>
   </footer>
 

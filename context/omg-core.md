@@ -6,11 +6,11 @@ OmG adds a role-driven workflow layer to Gemini CLI.
 
 - Use `/omg:*` commands for operational control.
 - Keep always-on context thin; heavy procedure belongs in the invoked command, not here.
-- Retained deep-work skills are limited to: `$plan`, `$omg-plan`, `$execute`, `$prd`, `$ralplan`, `$research`, `$deep-dive`, `$context-optimize`.
+- Retained skills are limited to: `$plan`, `$omg-plan`, `$execute`, `$prd`, `$ralplan`, `$research`, `$deep-dive`, `$blueprint`, `$context-optimize`, `$learn`.
 
 ## Default Flow (Hybrid Routing)
 
-- **Entry**: `intent` -> `workspace` (if dirty lanes or multi-root setup needed) -> `team-assemble` (if role fit is unclear).
+- **Entry**: `intent` -> `blueprint` (if product/UI workflow decisions matter) -> `workspace` (if dirty lanes or multi-root setup needed) -> `team-assemble` (if role fit is unclear).
 - **Clarification**: `interview` (if depth flags detected or scope is ambiguous).
   - *Automated*: -> `team-assemble` (orchestrates plan -> prd -> taskboard -> exec -> verify -> fix).
   - *Manual*: -> `team-plan` -> `team-prd`.

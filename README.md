@@ -62,13 +62,13 @@ Run a goal-style autonomous delivery loop:
 
 Note: extension install/update commands run in terminal mode (`gemini extensions ...`), not in interactive slash-command mode.
 
-## What's New in v0.8.5
+## What's New in v0.8.6
 
-- Added `/omg:goal` for Ralph/Codex-style goal-driven autonomous delivery.
-- `/omg:goal` treats routine non-destructive work as approved, then runs `team-plan -> team-prd -> taskboard -> team-exec -> team-verify -> team-fix`.
-- Goal mode repeats `exec -> verify -> fix` until acceptance passes, tracked tasks are verified, a blocker appears, or max cycles are reached.
-- Documented the runtime boundary: OmG can orchestrate autonomy, but it does not bypass Gemini CLI approval, sandbox, trusted-folder, shell, network, or policy controls.
-- Bumped extension/package version to `0.8.5` and refreshed README, Korean README, landing docs, and history.
+- Added `/omg:blueprint` and `$blueprint` for product/UI workflow decisions before implementation.
+- Blueprint mode captures target users, workflows, interface decisions, states, content hierarchy, accessibility, responsive constraints, open questions, and verification hooks.
+- Blueprint output can be kept copy-ready or persisted to `.omg/state/blueprint.md` when the user asks for a durable artifact.
+- The default OmG flow now routes product or interface-heavy work through `intent -> blueprint -> team-plan/team-prd -> taskboard -> team-exec`.
+- Bumped extension/package version to `0.8.6` and refreshed README, Korean README, landing docs, and history.
 
 ## Extension Boundary and Upgrade Safety
 
@@ -97,7 +97,7 @@ Note: extension install/update commands run in terminal mode (`gemini extensions
 | Delivery model | Official Gemini CLI extension (`gemini-extension.json`) |
 | Core building blocks | `GEMINI.md`, `agents/`, `commands/`, `skills/`, `context/` |
 | Main use case | Complex implementation tasks that need plan -> execute -> review loops |
-| Control surface | Slash-command-first `/omg:*` control plane + 8 deep-work `$skills` (including `omg-plan` alias) + sub-agent delegation |
+| Control surface | Slash-command-first `/omg:*` control plane + 10 retained `$skills` (including `omg-plan` alias) + sub-agent delegation |
 | Default model strategy | Configurable via `/omg:model` (`balanced` lane split uses `gemini-3.1-pro-preview` / `gemini-3-flash-preview` / `gemini-3.1-flash-lite-preview` by default, with optional `auto` or `custom` overrides) |
 
 ## Why OmG
@@ -327,6 +327,7 @@ export OMG_DISABLED_HOOKS=learn
 | `/omg:recall` | Recover prior decisions/evidence with state-first search and bounded history fallback | When you need past rationale quickly without replaying full transcripts |
 | `/omg:reasoning` | Set global reasoning effort and teammate overrides (`low/medium/high/xhigh`) | Before expensive planning/review loops or when depth is role-dependent |
 | `/omg:deep-init` | Build deep project map and validation baseline for long sessions | At project kickoff or when onboarding into unfamiliar codebases |
+| `/omg:blueprint` | Define product/UI workflow decisions, interface states, content hierarchy, accessibility, and verification hooks | Before planning or coding user-facing flows |
 | `/omg:team-assemble` | Dynamically compose a role-fit team with approval gate, lane-specific reasoning map, and fallback routing hints | Before `/omg:team` on cross-domain or non-standard tasks |
 | `/omg:team` | Execute full stage pipeline (`team-assemble? -> plan -> prd -> taskboard -> exec -> verify -> fix`) | Complex feature or refactor delivery |
 | `/omg:team-plan` | Build dependency-aware execution plan | Before implementation |
@@ -352,7 +353,7 @@ export OMG_DISABLED_HOOKS=learn
 
 ### Skills
 
-Retained skills are intentionally limited to a compact deep-work set so the extension loads less discovery metadata at session start (with one compatibility alias: `$omg-plan`).
+Retained skills are intentionally limited to a compact set so the extension loads less discovery metadata at session start (with one compatibility alias: `$omg-plan`).
 
 | Skill | Focus | Output style |
 | --- | --- | --- |
@@ -363,7 +364,9 @@ Retained skills are intentionally limited to a compact deep-work set so the exte
 | `$prd` | Convert requests into measurable acceptance criteria | PRD-style scope contract |
 | `$research` | Explore options/tradeoffs | Decision-oriented comparison |
 | `$deep-dive` | Run trace-to-interview discovery before planning | Clarity score, assumption ledger, and launch brief |
+| `$blueprint` | Lock product/UI workflow decisions before implementation | Workflow map, interface decisions, state coverage, and verification hooks |
 | `$context-optimize` | Improve context structure | Compression and signal-to-noise adjustments |
+| `$learn` | Extract reusable session patterns | Learned rule candidates and save recommendations |
 
 ### Sub-agents
 
