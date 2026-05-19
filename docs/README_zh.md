@@ -23,7 +23,7 @@
 OmA 将 Gemini CLI 从单会话助手扩展为结构化、角色驱动的工程工作流。
 
 <p align="center">
-  <img src="../resources/image/omg_logo_02.jpg" alt="OmA Logo" width="420" />
+  <img src="../resources/image/oma_logo_02.png" alt="OmA Logo" width="420" />
 </p>
 
 ## 快速开始

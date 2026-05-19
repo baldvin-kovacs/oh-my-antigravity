@@ -23,7 +23,7 @@ Gemini CLI 向けの、コンテキストエンジニアリング駆動マルチ
 OmA は Gemini CLI を単発セッションのアシスタントから、役割分離された構造的なエンジニアリングワークフローへ拡張します。
 
 <p align="center">
-  <img src="../resources/image/omg_logo_02.jpg" alt="OmA Logo" width="420" />
+  <img src="../resources/image/oma_logo_02.png" alt="OmA Logo" width="420" />
 </p>
 
 ## クイックスタート

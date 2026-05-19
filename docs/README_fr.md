@@ -23,7 +23,7 @@ Ce projet est parti de ce constat :
 OmA fait évoluer Gemini CLI d'un assistant mono-session vers un workflow d'ingénierie structuré et orienté rôles.
 
 <p align="center">
-  <img src="../resources/image/omg_logo_02.jpg" alt="OmA Logo" width="420" />
+  <img src="../resources/image/oma_logo_02.png" alt="OmA Logo" width="420" />
 </p>
 
 ## Démarrage rapide

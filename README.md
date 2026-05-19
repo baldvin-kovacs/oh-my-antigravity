@@ -10,7 +10,7 @@
 
 [한국어](docs/README_ko.md) | [日本語](docs/README_ja.md) | [Français](docs/README_fr.md) | [中文](docs/README_zh.md) | [Español](docs/README_es.md)
 
-Context-engineering-powered multi-agent workflow pack for Gemini CLI.
+Context-engineering-powered multi-agent workflow pack for Antigravity CLI.
 
 > "Claude Code's core competitiveness isn't the Opus or Sonnet engine. It's Claude Code itself. Surprisingly, Gemini works well too when attached to Claude Code."
 >
@@ -23,7 +23,7 @@ OmA extends Gemini CLI from a single-session assistant into a structured, role-d
 
 
 <p align="center">
-  <img src="resources/image/omg_logo_02.jpg" alt="OmA Logo" width="420" />
+  <img src="resources/image/oma_logo_02.png" alt="OmA Logo" width="420" />
 </p>
 
 ## Quick Start
