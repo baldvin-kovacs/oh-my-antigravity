@@ -526,7 +526,7 @@
   <section>
     <div class="wrap">
       <h2>Latest Update (Ultragoal Workflow)</h2>
-      <p class="sub">OmA v0.9.1 ports the durable multi-goal workflow (Ultragoal) from <code>oh-my-claudecode</code>, providing repository-native tracking, checkpointing, and fail-closed safety for complex requirements.</p>
+      <p class="sub">OmA v0.9.1 introduces the durable multi-goal workflow (Ultragoal), providing repository-native tracking, checkpointing, and fail-closed safety for complex requirements.</p>
       <table>
         <thead>
           <tr>
@@ -564,58 +564,7 @@
     </div>
   </section>
 
-  <section>
-    <div class="wrap">
-      <h2>Gemini CLI Compatibility</h2>
-      <p class="sub">Reviewed against official Gemini CLI documentation and releases on 2026-05-13.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Area</th>
-            <th>Current Guidance</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Stable baseline</td>
-            <td>Use Gemini CLI <code>v0.42.0+</code>. Latest stable observed: <code>v0.42.0</code> (2026-05-12). Recent changelog window reviewed: <code>v0.39.0</code> through <code>v0.42.0</code>.</td>
-          </tr>
-          <tr>
-            <td>Preview/nightly</td>
-            <td>Latest preview observed: <code>v0.42.0-preview.2</code>. Latest nightly observed: <code>v0.42.0-nightly.20260507.ga809bc7c5</code>. OmA does not require preview/nightly-only behavior.</td>
-          </tr>
-          <tr>
-            <td>Extensions</td>
-            <td>Install, update, list, reload, and validate through official <code>gemini extensions ...</code> and <code>/extensions</code> flows.</td>
-          </tr>
-          <tr>
-            <td>Registries</td>
-            <td>Use <code>/skills reload</code>, <code>/agents reload</code>, <code>/commands reload</code>, and <code>/extensions reload</code> after local changes or updates.</td>
-          </tr>
-          <tr>
-            <td>Subagents</td>
-            <td>Gemini CLI subagents are first-class and can be invoked automatically or with <code>@agent_name</code>; OmA keeps shared workflow state single-writer.</td>
-          </tr>
-          <tr>
-            <td>Policy</td>
-            <td><code>--allowed-tools</code> and <code>--yolo</code> are deprecated; use the Policy Engine and <code>--approval-mode=yolo</code> where appropriate.</td>
-          </tr>
-          <tr>
-            <td>Environment</td>
-            <td>Gemini CLI protects headless <code>.env</code> loading with workspace trust and now supports <code>ignoreLocalEnv</code>/<code>--ignore-env</code> when local environment files should be ignored.</td>
-          </tr>
-          <tr>
-            <td>Hooks</td>
-            <td>Hook diagnostics should go to <code>stderr</code> and final JSON to <code>stdout</code>. OmA retains quiet model routing and learn-signal filtering only.</td>
-          </tr>
-          <tr>
-            <td>Memory</td>
-            <td>Gemini CLI native <code>/memory</code> and Auto Memory inbox flows are separate from OmA <code>/oma:memory</code>, which remains scoped to project memory files and rule packs.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+
 
   <section>
     <div class="wrap">

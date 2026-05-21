@@ -2,6 +2,22 @@
 
 All notable changes to oh-my-antigravity are documented here.
 
+## v0.9.1 - Durable Multi-Goal Workflows (2026-05-21)
+
+### Added
+
+- Added `/oma:ultragoal` command to run durable multi-goal workflows.
+- Added `$ultragoal` skill to manage sequential goal maps with repository-native checkpoints.
+- Added state tracking files (`brief.md`, `goals.json`, `ledger.jsonl`) under `.omg/ultragoal/`.
+
+### Changed
+
+- Updated `/oma:doctor` to validate `$ultragoal` skill metadata.
+- Updated `/oma:intent` routing hints to suggest `$ultragoal`.
+- Registered `$ultragoal` in the retained skills list of core context.
+- Bumped package version to `0.9.1`.
+- Updated documentation in README, Korean README, and project home page.
+
 ## v0.9.0 - Project Rename to oh-my-antigravity (2026-05-20)
 
 ### Changed

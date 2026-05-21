@@ -64,7 +64,7 @@ Note: extension install/update commands run in terminal mode (`gemini extensions
 
 ## What's New in v0.9.1
 
-- **Durable Multi-Goal Workflows (Ultragoal)**: Ported the durable multi-goal workflow (`ultragoal`) from `oh-my-claudecode`. Adds `/oma:ultragoal` and `$ultragoal` to decompose complex tasks into sequential repo-native micro-goals.
+- **Durable Multi-Goal Workflows (Ultragoal)**: Adds `/oma:ultragoal` and `$ultragoal` to decompose complex tasks into sequential repo-native micro-goals.
 - **Fail-Closed Checkpointing**: Keeps checkpoint state fail-closed under `.omg/ultragoal/`, blocking downstream goals until the active goal has validation evidence.
 - **Diagnostics Hardening**: Updated `/oma:doctor` to validate `$ultragoal` skill metadata.
 - **Version Bump**: Bumped project and extension version to `v0.9.1`.
@@ -250,56 +250,6 @@ Example (disable the shipped AfterAgent learn hook by env):
 export OMG_DISABLED_HOOKS=learn
 ```
 
-## Gemini CLI Compatibility Notes (Reviewed: 2026-05-13)
-
-- Official upstream baseline checked:
-  - latest stable release: Gemini CLI `v0.42.0` (2026-05-12)
-  - latest preview release: `v0.42.0-preview.2` (2026-05-06)
-  - latest nightly observed: `v0.42.0-nightly.20260507.ga809bc7c5` (2026-05-07)
-- Recent upstream changelog window reviewed: `v0.39.0` (2026-04-23) through `v0.42.0` (2026-05-12).
-- Recommended OmA runtime baseline: Gemini CLI `v0.42.0+`.
-  - This keeps OmA on the current stable extension, subagent, policy, session, sandbox, and model-selection behavior.
-  - Preview/nightly builds remain optional; OmA does not require preview/nightly-only behavior for normal operation.
-  - No OmA command, hook, agent, or manifest code change is required by the May 2026 upstream changelog set.
-- Official extension workflow remains the supported install/update path:
-  - install/update/manage from terminal mode with `gemini extensions ...`
-  - verify loaded extensions interactively with `/extensions list`
-  - refresh active extension metadata with `/extensions reload` after runtime or extension updates
-- Current reload guidance:
-  - use `/skills reload` for retained skill changes
-  - use `/agents reload` for subagent registry changes
-  - use `/commands reload` for custom slash-command changes
-  - restart the session if a registry still appears stale after reload
-- Subagent compatibility:
-  - Gemini CLI subagents are first-class and may be invoked automatically or with `@agent_name`
-  - OmA keeps delegated/worker/subagent turns read-mostly for shared workflow state
-  - shared OmA state still assumes one authoritative orchestration writer via `.omg/state/session-lock.json`
-  - non-owning parallel sessions should write drafts under `.omg/state/sessions/[session-slug]/`
-- Model routing compatibility:
-  - Gemini CLI `--model` defaults to `auto`; official aliases include `auto`, `pro`, `flash`, and `flash-lite`
-  - OmA `balanced` still writes explicit lane model IDs for deterministic routing
-  - `/oma:model auto` defers lane model selection to Gemini CLI runtime auto-model policy
-- Policy and approval compatibility:
-  - `--allowed-tools` remains deprecated; use the Gemini CLI Policy Engine instead
-  - `--yolo` is deprecated; use `--approval-mode=yolo` if that posture is required
-  - OmA goal/autopilot flows still stop at Gemini CLI approval, sandbox, trusted-folder, shell, network, and policy boundaries
-- Environment-loading compatibility:
-  - Gemini CLI `v0.41.0+` enforces workspace trust around `.env` loading in headless mode
-  - Gemini CLI `v0.42.0` adds `ignoreLocalEnv` and `--ignore-env`; prefer these runtime controls when a project-local `.env` should be ignored
-- Hook compatibility:
-  - hook scripts must write diagnostic logs to `stderr` and final JSON to `stdout`
-  - OmA keeps only the quiet `BeforeModel` router and the `AfterAgent` learn-signal safety filter
-  - usage/quota visibility remains delegated to Gemini CLI native `/model` or `/stats model`
-- Memory compatibility:
-  - Gemini CLI `v0.39.0+` introduced native `/memory` inbox flows, and `v0.42.0` adds Auto Memory inbox behavior
-  - OmA `/oma:memory` remains a project workflow command for `MEMORY.md`, `.omg/memory/*`, and path-aware rule packs; do not treat it as a replacement for Gemini CLI native memory review
-- Browser-agent note:
-  - Gemini CLI now documents `browser_agent` as experimental
-  - OmA does not enable or depend on `browser_agent` by default
-- Slash planning compatibility:
-  - native Gemini CLI planning remains `/plan`
-  - use `/oma-plan` or `$oma-plan` for the OmA planning skill
-  - use `/oma:team-plan`, `/oma:team-assemble`, or `/oma:team` for staged OmA workflows
 
 ## Interface Map
 
