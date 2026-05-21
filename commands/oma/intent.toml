@@ -39,6 +39,7 @@ Routing hints:
 - implementation-ready -> `/oma:team-exec` or `$execute`
 - discovery/trace-to-interview pass -> `$deep-dive`
 - high-risk/quality-first planning -> `$ralplan`
+- durable multi-goal workflow -> `$ultragoal`
 - technical/API research -> `$research`
 - context bloat/efficiency -> `$context-optimize`
 - pattern extraction/session learning -> `$learn`

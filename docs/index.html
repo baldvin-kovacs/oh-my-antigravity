@@ -472,7 +472,7 @@
   <header>
     <div class="wrap">
       <div class="hero-top">
-        <span class="badge">Latest Update v0.9.0</span>
+        <span class="badge">Latest Update v0.9.1</span>
         <div class="top-actions">
           <a class="btn btn-link btn-github" href="https://github.com/Joonghyun-Lee-Frieren/oh-my-antigravity" target="_blank" rel="noreferrer noopener">
             <svg class="btn-icon" viewBox="0 0 16 16" aria-hidden="true">
@@ -516,8 +516,8 @@
 
       <div class="stats">
         <div class="stat"><div class="n">13</div><div class="l">Sub-agents</div></div>
-        <div class="stat"><div class="n">10</div><div class="l">Retained skills</div></div>
-        <div class="stat"><div class="n">44</div><div class="l">Namespaced commands</div></div>
+        <div class="stat"><div class="n">11</div><div class="l">Retained skills</div></div>
+        <div class="stat"><div class="n">45</div><div class="l">Namespaced commands</div></div>
         <div class="stat"><div class="n">5</div><div class="l">Context layers</div></div>
       </div>
     </div>
@@ -525,8 +525,8 @@
 
   <section>
     <div class="wrap">
-      <h2>Latest Update (Project Rename)</h2>
-      <p class="sub">OmA v0.9.0 renames the project and extension package to <code>oh-my-antigravity</code>, with refreshed repository, landing page, extension gallery, install, badge, and history references.</p>
+      <h2>Latest Update (Ultragoal Workflow)</h2>
+      <p class="sub">OmA v0.9.1 ports the durable multi-goal workflow (Ultragoal) from <code>oh-my-claudecode</code>, providing repository-native tracking, checkpointing, and fail-closed safety for complex requirements.</p>
       <table>
         <thead>
           <tr>
@@ -537,31 +537,27 @@
         <tbody>
           <tr>
             <td>New command</td>
-            <td><code>/oma:blueprint</code> defines product and interface decisions before planning or coding user-facing flows.</td>
+            <td><code>/oma:ultragoal</code> runs a durable multi-goal workflow, decomposing large requirements into sequential micro-goals.</td>
           </tr>
           <tr>
             <td>New skill</td>
-            <td><code>$blueprint</code> creates a workflow map, interface decision table, state coverage, open questions, and handoff notes.</td>
+            <td><code>$ultragoal</code> manages the durable goal map, status tracking, and ledger log generation under <code>.omg/ultragoal/</code>.</td>
           </tr>
           <tr>
-            <td>Artifact</td>
-            <td>When persistence is requested, the accepted blueprint can be stored in <code>.omg/state/blueprint.md</code>.</td>
+            <td>Checkpointing</td>
+            <td>State is fail-closed, blocking downstream goals until the active micro-goal is completed with validation evidence.</td>
           </tr>
           <tr>
-            <td>Routing</td>
-            <td>Product-heavy work can flow through <code>intent -&gt; blueprint -&gt; team-plan/team-prd -&gt; taskboard -&gt; team-exec</code>.</td>
+            <td>Handoff</td>
+            <td>Generates structured handoff instructions using the <code>--intent</code> pin pattern for safe step-by-step execution.</td>
           </tr>
           <tr>
-            <td>Coverage</td>
-            <td>Blueprints capture users, workflows, interface decisions, empty/loading/error/success states, content structure, accessibility, responsiveness, and evidence.</td>
-          </tr>
-          <tr>
-            <td>Docs refresh</td>
-            <td>README, Korean README, landing page, changelog, package metadata, and extension metadata were updated.</td>
+            <td>Diagnostics</td>
+            <td>Updated <code>/oma:doctor</code> diagnostics to validate the <code>$ultragoal</code> skill metadata.</td>
           </tr>
           <tr>
             <td>Release metadata</td>
-            <td>Package and extension metadata were bumped to <code>v0.9.0</code>.</td>
+            <td>Package and extension metadata were bumped to <code>v0.9.1</code>.</td>
           </tr>
         </tbody>
       </table>
@@ -771,7 +767,7 @@
           <tr>
             <td>Startup/discovery weight</td>
             <td>Broad mirrored command/skill surface plus disconnected shared context</td>
-            <td>Slash-command-first surface with 8 retained deep-work skills and a real root <code>GEMINI.md</code> entrypoint</td>
+            <td>Slash-command-first surface with 11 retained deep-work skills and a real root <code>GEMINI.md</code> entrypoint</td>
           </tr>
         </tbody>
       </table>
@@ -927,6 +923,7 @@
           <tr><td>Command</td><td><code>/oma:model</code></td><td>Switch model-selection strategy (<code>balanced</code>/<code>auto</code>/<code>custom</code>)</td></tr>
           <tr><td>Command</td><td><code>/oma:approval</code></td><td>Switch approval posture (<code>suggest</code>/<code>auto</code>/<code>full-auto</code>)</td></tr>
           <tr><td>Command</td><td><code>/oma:goal</code></td><td>Run a goal-driven autonomous delivery loop until verified, blocked, or max cycles are reached</td></tr>
+          <tr><td>Command</td><td><code>/oma:ultragoal</code></td><td>Run a durable multi-goal workflow (Ultragoal) persisting checkpoints and progress in repository-native files</td></tr>
           <tr><td>Command</td><td><code>/oma:team</code></td><td>Run full multi-agent lifecycle with optional assembled roster, deterministic queueing, and fallback rerouting</td></tr>
           <tr><td>Command</td><td><code>/oma:cancel</code></td><td>Harness-style safe cancel alias with resume handoff</td></tr>
           <tr><td>Command</td><td><code>/oma:optimize</code></td><td>Tune prompt/context quality and cost profile</td></tr>
@@ -938,6 +935,7 @@
           <tr><td>Skill</td><td><code>$ralplan</code></td><td>Strict staged planning with rollback points</td></tr>
           <tr><td>Skill</td><td><code>$research</code></td><td>Option comparison and tradeoff synthesis</td></tr>
           <tr><td>Skill</td><td><code>$deep-dive</code></td><td>Trace-to-interview discovery with clarity score and launch brief</td></tr>
+          <tr><td>Skill</td><td><code>$ultragoal</code></td><td>Manage durable multi-goal workflows with repo-native checkpoints and ledger logs</td></tr>
           <tr><td>Skill</td><td><code>$blueprint</code></td><td>Product/UI workflow map, interface decisions, state coverage, and verification hooks</td></tr>
           <tr><td>Skill</td><td><code>$context-optimize</code></td><td>Signal-to-noise optimization in context</td></tr>
           <tr><td>Skill</td><td><code>$learn</code></td><td>Reusable pattern extraction and learned-rule curation</td></tr>

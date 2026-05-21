@@ -6,7 +6,7 @@ OmA adds a role-driven workflow layer to Gemini CLI.
 
 - Use `/oma:*` commands for operational control.
 - Keep always-on context thin; heavy procedure belongs in the invoked command, not here.
-- Retained skills are limited to: `$plan`, `$oma-plan`, `$execute`, `$prd`, `$ralplan`, `$research`, `$deep-dive`, `$blueprint`, `$context-optimize`, `$learn`.
+- Retained skills are limited to: `$plan`, `$oma-plan`, `$execute`, `$prd`, `$ralplan`, `$research`, `$deep-dive`, `$blueprint`, `$context-optimize`, `$learn`, `$ultragoal`.
 
 ## Default Flow (Hybrid Routing)
 

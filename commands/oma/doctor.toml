@@ -17,7 +17,7 @@ Diagnostic protocol:
    - key directories (`agents`, `commands/oma`, `skills`, `context`)
    - key manifest/context files (`gemini-extension.json`, `GEMINI.md`, `context/oma-core.md`)
 3. Verify command readiness for core flows (`team`, `intent`, `workspace`, `taskboard`, `loop`, `rules`, `memory`, `hooks`, `notify`, `reasoning`, `approval`).
-4. Verify retained deep-work skills (`plan`, `oma-plan`, `execute`, `prd`, `ralplan`, `research`, `deep-dive`, `context-optimize`) and their metadata integrity.
+4. Verify retained deep-work skills (`plan`, `oma-plan`, `execute`, `prd`, `ralplan`, `research`, `deep-dive`, `context-optimize`, `ultragoal`) and their metadata integrity.
 5. Check state artifacts and drift risks under `.omg/state/` when available, including lane health, trust notes, and hook lifecycle policy.
 6. Detect common failure patterns:
    - extension not loaded in current session

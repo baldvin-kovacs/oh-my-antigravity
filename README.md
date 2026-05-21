@@ -62,12 +62,12 @@ Run a goal-style autonomous delivery loop:
 
 Note: extension install/update commands run in terminal mode (`gemini extensions ...`), not in interactive slash-command mode.
 
-## What's New in v0.9.0
+## What's New in v0.9.1
 
-- Renamed the project and extension package from `oh-my-gemini-cli` to `oh-my-antigravity`.
-- Changed the public shorthand from `OmG` to `OmA` and moved slash commands from `/omg:*` to `/oma:*`.
-- Updated GitHub, GitHub Pages, extension gallery, installation, uninstall, badge, and Star History links for the new repository name.
-- Bumped extension/package version to `0.9.0` and refreshed README, Korean README, landing page, installation guide, localized docs, and history.
+- **Durable Multi-Goal Workflows (Ultragoal)**: Ported the durable multi-goal workflow (`ultragoal`) from `oh-my-claudecode`. Adds `/oma:ultragoal` and `$ultragoal` to decompose complex tasks into sequential repo-native micro-goals.
+- **Fail-Closed Checkpointing**: Keeps checkpoint state fail-closed under `.omg/ultragoal/`, blocking downstream goals until the active goal has validation evidence.
+- **Diagnostics Hardening**: Updated `/oma:doctor` to validate `$ultragoal` skill metadata.
+- **Version Bump**: Bumped project and extension version to `v0.9.1`.
 
 ## Extension Boundary and Upgrade Safety
 
@@ -96,7 +96,7 @@ Note: extension install/update commands run in terminal mode (`gemini extensions
 | Delivery model | Official Gemini CLI extension (`gemini-extension.json`) |
 | Core building blocks | `GEMINI.md`, `agents/`, `commands/`, `skills/`, `context/` |
 | Main use case | Complex implementation tasks that need plan -> execute -> review loops |
-| Control surface | Slash-command-first `/oma:*` control plane + 10 retained `$skills` (including `oma-plan` alias) + sub-agent delegation |
+| Control surface | Slash-command-first `/oma:*` control plane + 11 retained `$skills` (including `oma-plan` alias) + sub-agent delegation |
 | Default model strategy | Configurable via `/oma:model` (`balanced` lane split uses `gemini-3.1-pro-preview` / `gemini-3-flash-preview` / `gemini-3.1-flash-lite-preview` by default, with optional `auto` or `custom` overrides) |
 
 ## Why OmA
@@ -339,6 +339,7 @@ export OMG_DISABLED_HOOKS=learn
 | `/oma:model` | Inspect or switch model-selection strategy (`balanced/auto/custom`) | When setting one default model policy (for example Gemini Auto across all tasks) |
 | `/oma:approval` | Inspect or switch approval posture (`suggest/auto/full-auto`) | Before autonomous delivery loops or policy changes |
 | `/oma:goal` | Run a goal-driven autonomous delivery loop with routine work pre-approved and runtime-boundary blockers explicit | When you want `/goal`-style hands-off delivery until verified, blocked, or max cycles |
+| `/oma:ultragoal` | Run a durable multi-goal workflow (Ultragoal) persisting checkpoints and progress in repository-native files | Decomposing large, complex requirements into sequential micro-goals that survive session restarts |
 | `/oma:autopilot` | Run iterative autonomous cycles with checkpoints | Complex autonomous delivery |
 | `/oma:ralph` | Enforce strict quality-gated orchestration | Release-critical tasks |
 | `/oma:ultrawork` | Throughput mode for batched independent tasks | Large backlogs |
@@ -363,6 +364,7 @@ Retained skills are intentionally limited to a compact set so the extension load
 | `$prd` | Convert requests into measurable acceptance criteria | PRD-style scope contract |
 | `$research` | Explore options/tradeoffs | Decision-oriented comparison |
 | `$deep-dive` | Run trace-to-interview discovery before planning | Clarity score, assumption ledger, and launch brief |
+| `$ultragoal` | Manage durable multi-goal workflows with repo-native checkpoints | Sequential goal map with verification criteria and ledger logs |
 | `$blueprint` | Lock product/UI workflow decisions before implementation | Workflow map, interface decisions, state coverage, and verification hooks |
 | `$context-optimize` | Improve context structure | Compression and signal-to-noise adjustments |
 | `$learn` | Extract reusable session patterns | Learned rule candidates and save recommendations |

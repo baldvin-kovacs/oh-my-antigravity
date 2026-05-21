@@ -63,12 +63,12 @@ Goal-style autonomous delivery loop:
 
 참고: 설치/업데이트 명령은 대화형 슬래시 명령 모드가 아니라 터미널 모드(`gemini extensions ...`)에서 실행합니다.
 
-## What's New in v0.9.0
+## What's New in v0.9.1
 
-- 프로젝트와 extension package 이름을 `oh-my-gemini-cli`에서 `oh-my-antigravity`로 변경했습니다.
-- 공개 약칭을 `OmG`에서 `OmA`로 바꾸고 slash command namespace를 `/omg:*`에서 `/oma:*`로 이동했습니다.
-- GitHub, GitHub Pages, extension gallery, 설치/삭제 명령, badge, Star History 링크를 새 저장소 이름에 맞게 갱신했습니다.
-- package/extension metadata를 `0.9.0`으로 올리고 README, Korean README, landing page, installation guide, localized docs, history를 갱신했습니다.
+- **영속적 다중 목표 워크플로우 (Ultragoal) 이식**: `oh-my-claudecode`에서 호평받은 영속적 다중 목표 워크플로우(`ultragoal`) 기능을 이식했습니다. `/oma:ultragoal` 명령과 `$ultragoal` 스킬을 사용하여 복잡한 요구사항을 저장소 기반의 단계별 마이크로 목표로 분해하고 실행합니다.
+- **Fail-Closed 체크포인팅**: `.omg/ultragoal/` 디렉터리에 실행 상태를 영속적으로 기록하며, 활성화된 마이크로 목표에 검증 근거가 수집되어 완료되기 전에는 후속 목표 진행을 차단하는 Fail-Closed 안전장치를 적용했습니다.
+- **진단 기능 강화**: `/oma:doctor` 진단 목록에 `$ultragoal` 스킬 메타데이터 무결성 검사를 추가했습니다.
+- **버전 범프**: 프로젝트 버전과 확장 매니페스트 버전을 `v0.9.1`로 갱신했습니다.
 
 ## 공유 워크플로우 상태
 
@@ -95,7 +95,7 @@ Goal-style autonomous delivery loop:
 | 제공 방식 | 공식 Gemini CLI 확장 (`gemini-extension.json`) |
 | 핵심 구성 요소 | `GEMINI.md`, `agents/`, `commands/`, `skills/`, `context/` |
 | 주요 사용 사례 | 계획 -> 실행 -> 검증 루프가 필요한 복잡한 구현 작업 |
-| 제어 인터페이스 | slash-command-first `/oma:*` 제어면 + 8개 deep-work `$skills`(`oma-plan` 별칭 포함) + 서브 에이전트 위임 |
+| 제어 인터페이스 | slash-command-first `/oma:*` 제어면 + 11개 deep-work `$skills`(`oma-plan` 별칭 포함) + 서브 에이전트 위임 |
 | 기본 모델 전략 | `/oma:model`로 구성 가능 (`balanced` 기본 분배는 `gemini-3.1-pro-preview` / `gemini-3-flash-preview` / `gemini-3.1-flash-lite-preview` 명시 모델명 사용, 필요 시 `auto`/`custom` 전환) |
 
 ## 왜 OmA인가
@@ -301,6 +301,7 @@ export OMG_DISABLED_HOOKS=learn
 | `/oma:model` | 기본 모델 선택 전략 조회/전환 (`balanced/auto/custom`) | 모든 작업에 Gemini Auto 같은 단일 기본 정책을 적용하고 싶을 때 |
 | `/oma:approval` | 승인 포스처 조회/전환 (`suggest/auto/full-auto`) | 자율 실행 루프 시작 전 또는 승인 정책 변경 시 |
 | `/oma:goal` | Ralph/Codex `/goal` 스타일의 목표 기반 자율 delivery loop 실행. routine non-destructive work는 승인된 것으로 간주하고 runtime-boundary blocker는 명시적으로 보고 | 검증 완료, blocker, 또는 max cycles까지 hands-off delivery가 필요할 때 |
+| `/oma:ultragoal` | 저장소 내에 체크포인트와 진행 상태를 영속화하며 진행되는 다중 목표 워크플로우(Ultragoal) 실행 | 복잡하고 방대한 요구사항을 세션 재시작 후에도 추적 가능한 순차 마이크로 목표로 분해하여 수행할 때 |
 | `/oma:autopilot` | 체크포인트 기반 반복 자동 사이클 실행 | 자율 실행이 필요한 복잡 작업 |
 | `/oma:ralph` | 엄격한 품질 게이트 오케스트레이션 강제 | 릴리스 크리티컬 작업 |
 | `/oma:ultrawork` | 독립 작업 배치 처리 중심 고처리량 모드 | 대규모 백로그 |
@@ -325,6 +326,7 @@ export OMG_DISABLED_HOOKS=learn
 | `$prd` | 요청을 측정 가능한 수용 기준으로 변환 | PRD 스타일 범위 계약 |
 | `$research` | 옵션/트레이드오프 탐색 | 의사결정 중심 비교 |
 | `$deep-dive` | 실행 전 trace-to-interview 기반 요구사항 정제 | 명확도 점수 + 가정 원장 + launch brief |
+| `$ultragoal` | 저장소 영속 체크포인트 기반의 다중 목표 워크플로우 제어 | 순차적 목표 맵, 수용 기준 및 변경 이력 로그(ledger) 생성 |
 | `$blueprint` | 제품/UI 워크플로 결정을 구현 전에 고정 | workflow map, interface decisions, state coverage, verification hooks |
 | `$context-optimize` | 컨텍스트 구조 개선 | 압축 + 신호 대 잡음 최적화 |
 | `$learn` | 세션에서 재사용 가능한 패턴 추출 | learned rule 후보와 저장 권장안 |
