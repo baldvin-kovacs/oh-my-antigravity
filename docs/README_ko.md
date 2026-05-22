@@ -11,6 +11,17 @@
 
 [한국어](./README_ko.md) | [日本語](./README_ja.md) | [Français](./README_fr.md) | [中文](./README_zh.md) | [Español](./README_es.md)
 
+> [!IMPORTANT]
+> **Antigravity CLI:** Gemini CLI will be replaced by Antigravity CLI on June 18th.
+>
+> Gemini CLI에 `oh-my-gemini-cli`를 설치했었다면 Antigravity CLI 설치 시 플러그인을 가져올지 묻는 항목이 있습니다. 해당 항목을 체크하면 기존 플러그인을 가져올 수 있습니다.
+>
+> 다음 명령어로도 OmA를 설치할 수 있습니다:
+>
+> ```bash
+> agy plugin install https://github.com/Joonghyun-Lee-Frieren/oh-my-antigravity
+> ```
+
 Gemini CLI를 위한 컨텍스트 엔지니어링 기반 멀티 에이전트 워크플로우 팩입니다.
 
 > "Claude Code의 핵심 경쟁력은 Opus나 Sonnet 엔진이 아닙니다. Claude Code 그 자체에요. 놀랍지만 Gemini도 Claude Code를 붙이면 잘 돌아갑니다."

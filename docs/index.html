@@ -42,6 +42,45 @@
       padding: 0 20px;
     }
 
+    .notice {
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .notice .wrap {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .notice-title {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .notice-text {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .notice-text + .notice-text {
+      margin-top: 8px;
+    }
+
+    .notice-code {
+      display: block;
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fbff;
+      color: #0b5f8f;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      white-space: pre;
+    }
+
     .badge {
       display: inline-block;
       padding: 6px 12px;
@@ -469,6 +508,14 @@
   </style>
 </head>
 <body>
+  <aside class="notice" aria-label="Antigravity CLI notice">
+    <div class="wrap">
+      <p class="notice-title">Antigravity CLI: Gemini CLI will be replaced by Antigravity CLI on June 18th.</p>
+      <p class="notice-text">If you previously installed <code>oh-my-gemini-cli</code> in Gemini CLI, Antigravity CLI will ask whether to import plugins during installation. Check that option to bring your plugin over.</p>
+      <p class="notice-text">You can also install OmA directly with:</p>
+      <code class="notice-code">agy plugin install https://github.com/Joonghyun-Lee-Frieren/oh-my-antigravity</code>
+    </div>
+  </aside>
   <header>
     <div class="wrap">
       <div class="hero-top">
