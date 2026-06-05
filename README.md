@@ -108,7 +108,7 @@ Note: extension install/update commands run in terminal mode (`gemini extensions
 | Core building blocks | `GEMINI.md`, `agents/`, `commands/`, `skills/`, `context/` |
 | Main use case | Complex implementation tasks that need plan -> execute -> review loops |
 | Control surface | Slash-command-first `/oma:*` control plane + 11 retained `$skills` (including `oma-plan` alias) + sub-agent delegation |
-| Default model strategy | Configurable via `/oma:model` (`balanced` lane split uses `gemini-3.1-pro-preview` / `gemini-3-flash-preview` / `gemini-3.1-flash-lite-preview` by default, with optional `auto` or `custom` overrides) |
+| Default model strategy | Configurable via `/oma:model` (`balanced` lane split uses `gemini-3.1-pro` / `gemini-3.5-flash` / `gemini-3.1-flash-lite` by default, with optional `auto` or `custom` overrides) |
 
 ## Why OmA
 
@@ -214,7 +214,7 @@ OmA ships a quiet model-routing hook. The previous `AfterAgent` quota-watch usag
 - Hook entrypoint: `hooks/hooks.json` (`BeforeModel` -> `oma-model-router`)
 - Script: `hooks/scripts/before-model-banner.js`
 - Behavior: silently maps outgoing model requests to the active OmA strategy (`balanced`, `auto`, or `custom`) without printing a model banner
-- Default balanced routing: planning/review -> `gemini-3.1-pro-preview`, execution -> `gemini-3-flash-preview`, quick edits -> `gemini-3.1-flash-lite-preview`
+- Default balanced routing: planning/review -> `gemini-3.1-pro`, execution -> `gemini-3.5-flash`, quick edits -> `gemini-3.1-flash-lite`
 - Optional disable: `OMG_DISABLED_HOOKS=model-routing` or `OMG_MODEL_ROUTING=off`
 
 Usage/quota visibility:
@@ -334,19 +334,19 @@ Retained skills are intentionally limited to a compact set so the extension load
 
 | Agent | Primary responsibility | Preferred model profile |
 | --- | --- | --- |
-| `oma-architect` | System boundaries, interfaces, long-term maintainability | `gemini-3.1-pro-preview` |
-| `oma-planner` | Task decomposition and sequencing | `gemini-3.1-pro-preview` |
-| `oma-product` | Scope lock, non-goals, and measurable acceptance criteria | `gemini-3.1-pro-preview` |
-| `oma-executor` | Fast implementation cycles | `gemini-3-flash-preview` |
-| `oma-reviewer` | Correctness and regression risk checks | `gemini-3.1-pro-preview` |
-| `oma-verifier` | Acceptance-gate evidence and release-readiness checks | `gemini-3.1-pro-preview` |
-| `oma-debugger` | Root-cause analysis and patch strategy | `gemini-3.1-pro-preview` |
-| `oma-consensus` | Option scoring and decision convergence | `gemini-3.1-pro-preview` |
-| `oma-researcher` | External option analysis and synthesis | `gemini-3.1-pro-preview` |
-| `oma-director` | Team message routing, conflict resolution, and lifecycle orchestration | `gemini-3.1-pro-preview` |
-| `oma-consultant` | Strategic analysis criteria and recommendation framing | `gemini-3.1-pro-preview` |
-| `oma-editor` | Final deliverable structure, consistency, and audience fit | `gemini-3-flash-preview` |
-| `oma-quick` | Small, tactical fixes | `gemini-3.1-flash-lite-preview` |
+| `oma-architect` | System boundaries, interfaces, long-term maintainability | `gemini-3.1-pro` |
+| `oma-planner` | Task decomposition and sequencing | `gemini-3.1-pro` |
+| `oma-product` | Scope lock, non-goals, and measurable acceptance criteria | `gemini-3.1-pro` |
+| `oma-executor` | Fast implementation cycles | `gemini-3.5-flash` |
+| `oma-reviewer` | Correctness and regression risk checks | `gemini-3.1-pro` |
+| `oma-verifier` | Acceptance-gate evidence and release-readiness checks | `gemini-3.1-pro` |
+| `oma-debugger` | Root-cause analysis and patch strategy | `gemini-3.1-pro` |
+| `oma-consensus` | Option scoring and decision convergence | `gemini-3.1-pro` |
+| `oma-researcher` | External option analysis and synthesis | `gemini-3.1-pro` |
+| `oma-director` | Team message routing, conflict resolution, and lifecycle orchestration | `gemini-3.1-pro` |
+| `oma-consultant` | Strategic analysis criteria and recommendation framing | `gemini-3.1-pro` |
+| `oma-editor` | Final deliverable structure, consistency, and audience fit | `gemini-3.5-flash` |
+| `oma-quick` | Small, tactical fixes | `gemini-3.1-flash-lite` |
 
 ## Context Layer Model
 

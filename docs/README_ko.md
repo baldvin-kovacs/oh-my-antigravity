@@ -107,7 +107,7 @@ Goal-style autonomous delivery loop:
 | 핵심 구성 요소 | `GEMINI.md`, `agents/`, `commands/`, `skills/`, `context/` |
 | 주요 사용 사례 | 계획 -> 실행 -> 검증 루프가 필요한 복잡한 구현 작업 |
 | 제어 인터페이스 | slash-command-first `/oma:*` 제어면 + 11개 deep-work `$skills`(`oma-plan` 별칭 포함) + 서브 에이전트 위임 |
-| 기본 모델 전략 | `/oma:model`로 구성 가능 (`balanced` 기본 분배는 `gemini-3.1-pro-preview` / `gemini-3-flash-preview` / `gemini-3.1-flash-lite-preview` 명시 모델명 사용, 필요 시 `auto`/`custom` 전환) |
+| 기본 모델 전략 | `/oma:model`로 구성 가능 (`balanced` 기본 분배는 `gemini-3.1-pro` / `gemini-3.5-flash` / `gemini-3.1-flash-lite` 명시 모델명 사용, 필요 시 `auto`/`custom` 전환) |
 
 ## 왜 OmA인가
 
@@ -297,16 +297,16 @@ export OMG_DISABLED_HOOKS=learn
 
 | 에이전트 | 주 책임 | 권장 모델 프로파일 |
 | --- | --- | --- |
-| `oma-architect` | 시스템 경계, 인터페이스, 장기 유지보수성 | `gemini-3.1-pro-preview` |
-| `oma-planner` | 작업 분해와 순서/의존성 관리 | `gemini-3.1-pro-preview` |
-| `oma-product` | 범위/비범위와 측정 가능한 수용 기준 고정 | `gemini-3.1-pro-preview` |
-| `oma-executor` | 빠른 구현 사이클 | `gemini-3-flash-preview` |
-| `oma-reviewer` | 정확성/회귀 리스크 점검 | `gemini-3.1-pro-preview` |
-| `oma-verifier` | 수용 기준 근거 검증과 릴리스 준비도 판단 | `gemini-3.1-pro-preview` |
-| `oma-debugger` | 근본 원인 분석과 패치 전략 | `gemini-3.1-pro-preview` |
-| `oma-consensus` | 옵션 스코어링과 의사결정 수렴 | `gemini-3.1-pro-preview` |
-| `oma-researcher` | 외부 옵션 분석과 종합 | `gemini-3.1-pro-preview` |
-| `oma-quick` | 의도된 적은 수정 | `gemini-3.1-flash-lite-preview` |
+| `oma-architect` | 시스템 경계, 인터페이스, 장기 유지보수성 | `gemini-3.1-pro` |
+| `oma-planner` | 작업 분해와 순서/의존성 관리 | `gemini-3.1-pro` |
+| `oma-product` | 범위/비범위와 측정 가능한 수용 기준 고정 | `gemini-3.1-pro` |
+| `oma-executor` | 빠른 구현 사이클 | `gemini-3.5-flash` |
+| `oma-reviewer` | 정확성/회귀 리스크 점검 | `gemini-3.1-pro` |
+| `oma-verifier` | 수용 기준 근거 검증과 릴리스 준비도 판단 | `gemini-3.1-pro` |
+| `oma-debugger` | 근본 원인 분석과 패치 전략 | `gemini-3.1-pro` |
+| `oma-consensus` | 옵션 스코어링과 의사결정 수렴 | `gemini-3.1-pro` |
+| `oma-researcher` | 외부 옵션 분석과 종합 | `gemini-3.1-pro` |
+| `oma-quick` | 의도된 적은 수정 | `gemini-3.1-flash-lite` |
 
 ## 컨텍스트 레이어 모델
 

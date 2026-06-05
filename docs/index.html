@@ -617,22 +617,22 @@
     <div class="wrap">
       <div>
         <h2>Model Allocation</h2>
-        <p class="sub">Default balanced split uses explicit preview model IDs: <code>gemini-3.1-pro-preview</code>, <code>gemini-3-flash-preview</code>, and <code>gemini-3.1-flash-lite-preview</code>, so OmA does not depend on Gemini CLI alias target drift.</p>
+        <p class="sub">Default balanced split uses explicit model IDs: <code>gemini-3.1-pro</code>, <code>gemini-3.5-flash</code>, and <code>gemini-3.1-flash-lite</code>, so OmA does not depend on Gemini CLI alias target drift.</p>
         <div class="chart">
           <div class="bar">
-            <div class="bar-label"><span>Judgment &amp; Acceptance Gates (<code>gemini-3.1-pro-preview</code>)</span><span>60%</span></div>
+            <div class="bar-label"><span>Judgment &amp; Acceptance Gates (<code>gemini-3.1-pro</code>)</span><span>60%</span></div>
             <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
           </div>
           <div class="bar">
-            <div class="bar-label"><span>Implementation &amp; Delivery (<code>gemini-3-flash-preview</code>)</span><span>25%</span></div>
+            <div class="bar-label"><span>Implementation &amp; Delivery (<code>gemini-3.5-flash</code>)</span><span>25%</span></div>
             <div class="bar-track"><div class="bar-fill flash" style="width:25%"></div></div>
           </div>
           <div class="bar">
-            <div class="bar-label"><span>Exploration &amp; Quick Low-Risk Work (<code>gemini-3.1-flash-lite-preview</code>)</span><span>15%</span></div>
+            <div class="bar-label"><span>Exploration &amp; Quick Low-Risk Work (<code>gemini-3.1-flash-lite</code>)</span><span>15%</span></div>
             <div class="bar-track"><div class="bar-fill lite" style="width:15%"></div></div>
           </div>
         </div>
-        <p class="sub" style="margin-top:10px;">Need one policy for every task? Run <code>/oma:model auto</code>. Want deterministic latest-preview routing? Keep the default explicit preview model map.</p>
+        <p class="sub" style="margin-top:10px;">Need one policy for every task? Run <code>/oma:model auto</code>. Want deterministic routing? Keep the default explicit model map.</p>
       </div>
     </div>
   </section>
@@ -946,19 +946,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td><code>oma-architect</code></td><td>System boundaries and long-term design quality</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-planner</code></td><td>Task slicing, dependencies, execution order</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-product</code></td><td>Scope lock and measurable acceptance criteria</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-executor</code></td><td>Code-level implementation and incremental delivery</td><td><code>gemini-3-flash-preview</code></td></tr>
-          <tr><td><code>oma-reviewer</code></td><td>Regression checks and correctness review</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-verifier</code></td><td>Acceptance-gate evidence checks and release readiness</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-debugger</code></td><td>Root cause analysis and fix strategy</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-consensus</code></td><td>Option convergence and decision scoring</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-researcher</code></td><td>Evidence gathering and decision support</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-director</code></td><td>Lane orchestration, conflict resolution, and handoff control</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-consultant</code></td><td>Decision criteria, strategic analysis, and recommendation framing</td><td><code>gemini-3.1-pro-preview</code></td></tr>
-          <tr><td><code>oma-editor</code></td><td>Final deliverable structure and consistency packaging</td><td><code>gemini-3-flash-preview</code></td></tr>
-          <tr><td><code>oma-quick</code></td><td>Small tactical edits</td><td><code>gemini-3.1-flash-lite-preview</code></td></tr>
+          <tr><td><code>oma-architect</code></td><td>System boundaries and long-term design quality</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-planner</code></td><td>Task slicing, dependencies, execution order</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-product</code></td><td>Scope lock and measurable acceptance criteria</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-executor</code></td><td>Code-level implementation and incremental delivery</td><td><code>gemini-3.5-flash</code></td></tr>
+          <tr><td><code>oma-reviewer</code></td><td>Regression checks and correctness review</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-verifier</code></td><td>Acceptance-gate evidence checks and release readiness</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-debugger</code></td><td>Root cause analysis and fix strategy</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-consensus</code></td><td>Option convergence and decision scoring</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-researcher</code></td><td>Evidence gathering and decision support</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-director</code></td><td>Lane orchestration, conflict resolution, and handoff control</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-consultant</code></td><td>Decision criteria, strategic analysis, and recommendation framing</td><td><code>gemini-3.1-pro</code></td></tr>
+          <tr><td><code>oma-editor</code></td><td>Final deliverable structure and consistency packaging</td><td><code>gemini-3.5-flash</code></td></tr>
+          <tr><td><code>oma-quick</code></td><td>Small tactical edits</td><td><code>gemini-3.1-flash-lite</code></td></tr>
         </tbody>
       </table>
     </div>
