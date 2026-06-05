@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const packageJsonPath = path.join(__dirname, "..", "package.json");
 const extensionJsonPath = path.join(__dirname, "..", "gemini-extension.json");
+const pluginJsonPath = path.join(__dirname, "..", "plugin.json");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -30,6 +31,7 @@ if (requestedVersion && !isValidVersion(requestedVersion)) {
 
 const packageJson = readJson(packageJsonPath);
 const extensionJson = readJson(extensionJsonPath);
+const pluginJson = readJson(pluginJsonPath);
 
 const targetVersion = requestedVersion || packageJson.version;
 if (!isValidVersion(targetVersion)) {
@@ -41,8 +43,10 @@ if (!isValidVersion(targetVersion)) {
 
 packageJson.version = targetVersion;
 extensionJson.version = targetVersion;
+pluginJson.version = targetVersion;
 
 writeJson(packageJsonPath, packageJson);
 writeJson(extensionJsonPath, extensionJson);
+writeJson(pluginJsonPath, pluginJson);
 
 console.log(`Synchronized package + extension version to ${targetVersion}`);

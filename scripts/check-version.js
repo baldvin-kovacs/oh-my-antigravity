@@ -7,10 +7,12 @@ const __dirname = path.dirname(__filename);
 
 const packageJsonPath = path.join(__dirname, "..", "package.json");
 const extensionJsonPath = path.join(__dirname, "..", "gemini-extension.json");
+const pluginJsonPath = path.join(__dirname, "..", "plugin.json");
 const syncVersionPath = path.join(__dirname, "sync-version.js");
 
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
 const extensionJson = JSON.parse(fs.readFileSync(extensionJsonPath, "utf8"));
+const pluginJson = JSON.parse(fs.readFileSync(pluginJsonPath, "utf8"));
 
 const version = packageJson.version;
 const errors = [];
@@ -20,6 +22,12 @@ console.log(`Source version (package.json): ${version}`);
 if (extensionJson.version !== version) {
   errors.push(
     `gemini-extension.json version (${extensionJson.version}) does not match package.json (${version})`,
+  );
+}
+
+if (pluginJson.version !== version) {
+  errors.push(
+    `plugin.json version (${pluginJson.version}) does not match package.json (${version})`,
   );
 }
 

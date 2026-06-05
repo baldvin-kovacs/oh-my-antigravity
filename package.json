@@ -26,6 +26,7 @@
   "files": [
     "GEMINI.md",
     "gemini-extension.json",
+    "plugin.json",
     "agents/",
     "commands/",
     "hooks/",

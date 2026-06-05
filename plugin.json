@@ -1,0 +1,9 @@
+{
+  "name": "oh-my-antigravity",
+  "version": "0.9.1",
+  "description": "Context engineering and multi-agent workflow extension for Antigravity CLI.",
+  "author": "Joonghyun-Lee-Frieren",
+  "license": "MIT",
+  "homepage": "https://github.com/Joonghyun-Lee-Frieren/oh-my-antigravity",
+  "sourceUrl": "https://github.com/Joonghyun-Lee-Frieren/oh-my-antigravity"
+}
